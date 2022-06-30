@@ -424,7 +424,7 @@ Updates and returns an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: PUT
-  * URL: /spots/:id
+  * URL: /users/:id/spots/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -512,7 +512,7 @@ Deletes an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /spots/:id
+  * URL: /users/:id/spots/:spotId
   * Body: none
 
 * Successful Response
@@ -1133,7 +1133,8 @@ Delete an existing booking.
 * Request
   * Method: DELETE
   * URL:/users/:id/bookings/:bookingId
-        /spots/:id/bookings/:bookingId  ??
+        /users/:id/spots/:spotId/bookings/:bookingId
+        
   * Body: none
 
 * Successful Response
