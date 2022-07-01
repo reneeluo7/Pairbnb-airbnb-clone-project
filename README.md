@@ -3,7 +3,7 @@
 
 ## Database Schema Design
 
-`https://user-images.githubusercontent.com/103155560/176754574-e362c2c5-ceaf-4087-a513-5c10a6ab6e7a.png`
+`https://user-images.githubusercontent.com/103155560/176919578-47113c00-b4a6-4776-8abc-6325740dc8ec.png`
 
 ## API Documentation
 
