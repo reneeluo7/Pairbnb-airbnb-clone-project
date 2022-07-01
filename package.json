@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/reneeluo7/airbnb-backend-project/issues"
   },
-  "homepage": "https://github.com/reneeluo7/airbnb-backend-project#readme"
+  "homepage": "https://github.com/reneeluo7/airbnb-backend-project#readme",
+  "dependencies": {
+    "pg": "^8.7.3"
+  }
 }
