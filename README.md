@@ -253,7 +253,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /spots/:ownerId
+  * URL: /spots/users/:ownerId
   * Body: none
 
 * Successful Response
