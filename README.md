@@ -600,7 +600,7 @@ Returns all the reviews that belong to a spot specified by id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /reviews/spots/:spotId
+  * URL: /spots/:id/reviews
   * Body: none
 
 * Successful Response
@@ -653,7 +653,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /reviews/spots/:spotId
+  * URL: /spots/:id/reviews
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -838,7 +838,7 @@ Return all the bookings that the current user has made.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/users/:userId
+  * URL: /users/:id/bookings
   * Body: none
 
 * Successful Response
@@ -883,7 +883,7 @@ Return all the bookings for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/spots/:spotId
+  * URL: spots/:id/bookings
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
@@ -952,7 +952,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL:/bookings/spots/:spotId
+  * URL:/spots/:id/bookings
   * Body: 
 
     ```json
@@ -1183,7 +1183,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: /images/spots/:spotId
+  * URL: /spots/:id/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1230,7 +1230,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: /images/reviews/:reviewId
+  * URL: /reviews/:id/images
   * Headers:
     * Content-Type: application/json
   * Body:
