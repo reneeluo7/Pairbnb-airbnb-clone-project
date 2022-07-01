@@ -253,7 +253,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /spots/users/:ownerId
+  * URL: /users/:id/spots
   * Body: none
 
 * Successful Response
@@ -548,7 +548,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /reviews/users/:userId
+  * URL: /users/:id/reviews
   * Body: none
 
 * Successful Response
