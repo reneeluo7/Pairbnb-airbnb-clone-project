@@ -3,14 +3,14 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.addColumn('user', 'firstName', {
-      type: DataTypes.STRING,
+    await queryInterface.addColumn('users', 'firstName', {
+      type: Sequelize.STRING,
       allowNull: false
 
     });
 
-    await queryInterface.addColumn('user', 'lastName', {
-      type: DataTypes.STRING,
+    await queryInterface.addColumn('users', 'lastName', {
+      type: Sequelize.STRING,
       allowNull: false
 
     });
@@ -18,8 +18,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
 
-    await queryInterface.removeColumn('user', 'firstName');
-    await queryInterface.removeColumn('user', 'lastName');
+    await queryInterface.removeColumn('users', 'firstName');
+    await queryInterface.removeColumn('users', 'lastName');
 
   }
 };
