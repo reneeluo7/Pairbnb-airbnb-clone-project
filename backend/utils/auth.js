@@ -66,13 +66,11 @@ const requireAuth = (req, _res, next) => {
 }
 
 
-// const requireAuthorization = (req, _res, next) => {
-//     // validate JWT
-//     const tokenbody = req.cookies.token;
-//     const payload = jwt.decode(tokenbody);
-//     console.log(payload)
-//     next()
-// }
+const requireAuthorization = (req, _res, next) => {
+    // validate JWT
+    console.log(req.user)
+    next()
+}
 
 
 

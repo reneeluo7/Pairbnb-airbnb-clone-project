@@ -1,7 +1,7 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { setTokenCookie, requireAuth, requireAuthorization } = require('../../utils/auth');
+const { User, Spot } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -91,5 +91,20 @@ router.post(
       );
     }
   );
+
+
+  router.get('/:id/spots',
+    // restoreUser,
+    requireAuth,
+    requireAuthorization,
+    async (req, res) => {
+
+        const spots = await Spot.findAll({
+            where: {
+                ownerId: req.params.id
+            }
+        });
+        res.json({ spots });
+    });
 
 module.exports = router;

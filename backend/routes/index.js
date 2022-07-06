@@ -5,18 +5,18 @@ const router = express.Router();
 const apiRouter = require('./api');
 
 // import spotsRoouter connect it to the router
-const spotsRouter = require('./spots');
+// const spotsRouter = require('./spots');
 
 // import spotsRoouter connect it to the router
-const usersRouter = require('./users')
+// const usersRouter = require('./users')
 
 
 
-router.use('/api', apiRouter);
+router.use( apiRouter);
 
-router.use('/spots', spotsRouter);
+// router.use('/spots', spotsRouter);
 
-router.use('/users', usersRouter);
+// router.use('/users', usersRouter);
 
 
 router.get('/hello/world', function(req, res) {

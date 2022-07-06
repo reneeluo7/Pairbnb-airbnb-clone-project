@@ -3,7 +3,7 @@
 
 ## Database Schema Design
 
-`![airbnb-backend-project (2)](https://user-images.githubusercontent.com/103155560/177491854-ed736918-771f-44d4-88c7-b6b61eefa390.png)`
+`![airbnb-backend-project (3)](https://user-images.githubusercontent.com/103155560/177633980-0604949e-57b1-4a37-a8fd-5d96e84cef15.png)`
 
 ## API Documentation
 
@@ -51,7 +51,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/session
+  * URL: /session
   * Body: none
 
 * Successful Response
@@ -77,7 +77,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /api/session
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -143,7 +143,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /api/users
+  * URL: /users
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -424,7 +424,7 @@ Updates and returns an existing spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: PUT
-  * URL: spots/:id
+  * URL: /spots/:id
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -734,7 +734,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: PUT
-  * URL: reviews/:id
+  * URL: /reviews/:id
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -883,7 +883,7 @@ Return all the bookings for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: spots/:id/bookings
+  * URL: /spots/:id/bookings
   * Body: none
 
 * Successful Response: If you ARE NOT the owner of the spot.
