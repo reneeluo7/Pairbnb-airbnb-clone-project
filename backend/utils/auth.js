@@ -55,7 +55,7 @@ const restoreUser = (req, res, next) => {
 // Require Auth
 // If there is no current user, return an error
 const requireAuth = (req, _res, next) => {
-    // console.log(req.user)
+    
     if (req.user) return next();
 
     const err = new Error('Unauthorized');
@@ -66,9 +66,15 @@ const requireAuth = (req, _res, next) => {
 }
 
 
+// const requireAuthorization = (req, _res, next) => {
+//     // validate JWT
+//     const tokenbody = req.cookies.token;
+//     const payload = jwt.decode(tokenbody);
+//     console.log(payload)
+//     next()
+// }
 
 
 
 
-
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthorization };

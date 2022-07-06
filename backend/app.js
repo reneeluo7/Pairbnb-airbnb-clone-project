@@ -10,6 +10,7 @@ const { ValidationError } = require('sequelize');
 
 const routes = require('./routes');
 
+
 const isProduction = environment === 'production';
 
 const app = express();
@@ -42,8 +43,11 @@ if (!isProduction) {
     })
   );
 
-  app.use(routes);
+ 
 
+  app.use(routes);
+  
+  
 
 //   Resource Not Found Error-Handler
 
