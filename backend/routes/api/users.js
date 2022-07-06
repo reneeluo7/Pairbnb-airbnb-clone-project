@@ -92,9 +92,9 @@ router.post(
     }
   );
 
-
+// get all spots from current user
   router.get('/:id/spots',
-    // restoreUser,
+    
     requireAuth,
     requireAuthorization,
     async (req, res) => {
