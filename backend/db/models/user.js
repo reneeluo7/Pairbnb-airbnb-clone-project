@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     toSafeObject() {
-      const { id, username, email } = this;  // context will be the User instance
-      return {id, username, email};
+      const { id, username, firstName, lastName, email } = this;  // context will be the User instance
+      return {id, username, firstName, lastName, email};
     }
 
     validatePassword(password) {
@@ -41,10 +41,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ username, email, password }) {
+    static async signup({  firstName, lastName, email, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
-        username,
+        // username,
+        firstName,
+        lastName,
         email,
         hashedPassword
       });
@@ -53,12 +55,13 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      User.hasMany(models.Spot, { foreignKey: 'ownerId' });
     }
   }
   User.init({
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      
       validate: {
         len: [4, 30],
         isNotEmail(value) {
@@ -68,9 +71,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false      
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false      
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      // unique: true,
       validate: {
         len: [3, 256]
       }
@@ -93,11 +105,13 @@ module.exports = (sequelize, DataTypes) => {
     scopes: {
       currentUser: {
         attributes: {
-          exclude: ["hashedPassword"]
+          exclude: ["hashedPassword", "username","createdAt", "updatedAt"]
         }
       },
       loginUser: {
-        attributes: {}
+        attributes: {     
+         
+        }
       }
     }
   });
