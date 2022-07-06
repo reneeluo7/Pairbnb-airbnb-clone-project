@@ -41,7 +41,7 @@ router.post(
       
       const token = await setTokenCookie(res, user);
       
-      // console.log(token)
+      
       
       const loginUser = {
         id: user.id, 
@@ -71,12 +71,26 @@ router.delete(
 router.get(
     '/',
     restoreUser,
-    (req, res) => {
+     (req, res) => {
       const { user } = req;
       if (user) {
-        return res.json({
-          user: user.toSafeObject()
-        });
+        
+        const token =  setTokenCookie(res, user);              
+        
+       
+
+        const currentUser = {
+          id: user.id, 
+          firstName: user.firstName, 
+          lastName: user.lastName,
+          email: user.email,
+          token
+        };
+       
+
+        return res.json(
+        currentUser 
+        );
       } else return res.json({});
     }
   );
