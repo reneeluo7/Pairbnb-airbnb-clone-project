@@ -94,7 +94,7 @@ router.post(
 
 // get all spots from current user
   router.get('/:id/spots',
-    
+        
     requireAuth,
     requireAuthorization,
     async (req, res) => {
