@@ -20,8 +20,7 @@ const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
       .isEmail()
-      .withMessage('Please provide a valid email.'),
-    
+      .withMessage('Please provide a valid email.'),   
       
     // check('username')
     //   .exists({ checkFalsy: false })
@@ -73,9 +72,7 @@ router.post(
       
       const user = await User.signup({ email, firstName, lastName, password });
   
-      const token = await setTokenCookie(res, user);
-      
-      
+      const token = await setTokenCookie(res, user);     
       
       const signupUser = {
         id: user.id, 
@@ -86,15 +83,14 @@ router.post(
       };
 
       return res.json(
-        signupUser      
-               
+        signupUser                    
       );
     }
   );
 
 // get all spots from current user
   router.get('/:id/spots',
-        
+
     requireAuth,
     requireAuthorization,
     async (req, res) => {
