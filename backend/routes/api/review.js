@@ -20,7 +20,7 @@ const validateReview = async (req, _res, next) => {
     };
     next();
 };
-// to check if manupilate by spot owner
+// to check if manipulate by review owner
 const verifyReviewOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
     const review = await Review.findByPk(req.params.id)
@@ -53,7 +53,7 @@ router.get('/:id', validateReview, async (req, res) => {
     res.json(review);
 });
 
-// Get a review by review id
+// Get all reviews 
 router.get('/', async (req, res) => {
     const reviews = await Review.findAll();
     res.json(reviews);
