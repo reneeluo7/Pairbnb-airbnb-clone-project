@@ -104,7 +104,7 @@ const reviewExist = async (req, _res, next) => {
 
 // Get all Reviews by a Spot's id
 router.get('/:id/reviews', validateSpot, async(req, res) => {
-    const Reviews = await Review.findAll({
+    const reviews = await Review.findAll({
         where: {
             spotId: req.params.id
         },
@@ -116,7 +116,7 @@ router.get('/:id/reviews', validateSpot, async(req, res) => {
             attributes:['url']
         }]
     });
-    res.json({Reviews})
+    res.json({Reviews: reviews})
 })
 
 

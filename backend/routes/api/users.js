@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Review, Image } = require('../../db/models');
+const { User, Spot, Review, Image, Booking } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -125,7 +125,7 @@ requireAuth,
 verifyUser,
 async (req, res) => {
 
-    const Reviews = await Review.findAll({
+    const reviews = await Review.findAll({
         where: {
             userId: req.params.id
         },
@@ -141,9 +141,26 @@ async (req, res) => {
          }
         ]
     });
-    res.json({ Reviews });
+    res.json({ Reviews: reviews });
 });
 
+// get all bookings from current user
+router.get('/:id/bookings',
+requireAuth,
+verifyUser,
+async (req, res) => {
+
+    const bookings = await Booking.findAll({
+        where: {
+            userId: req.params.id
+        },
+        include: [{
+          model: Spot,
+          attributes: {exclude: ["description", "createdAt", "updatedAt"]}
+         }]
+    });
+    res.json({ Bookings: bookings });
+});
 
 
 
