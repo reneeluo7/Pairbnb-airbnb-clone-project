@@ -61,7 +61,7 @@ const validateCreateSpot = [
         .withMessage('Description is required'),
     handleValidationErrors
 ];
-// to check if manupilate by spot owner
+// to check if manipulate by spot owner
 const verifySpotOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
     const spot = await Spot.findByPk( req.params.id )
@@ -90,7 +90,8 @@ const validateCreateReview = [
 // to check if the review is created by the exist user
 const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
-    const review = await Review.findOne({where:{userId}});
+    const spotId = req.params.id;
+    const review = await Review.findOne({where:{userId, spotId}});
     if (review){
         const err = new Error ('User already has a review for this spot');
       err.status = 403;

@@ -20,7 +20,7 @@ const validateReview = async (req, _res, next) => {
     };
     next();
 };
-// to check if manupilate by spot owner
+// to check if manipulate by review owner
 const verifyReviewOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
     const review = await Review.findByPk(req.params.id)
