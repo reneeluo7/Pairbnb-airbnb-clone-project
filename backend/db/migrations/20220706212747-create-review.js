@@ -21,7 +21,7 @@ module.exports = {
       review: {
         type: Sequelize.TEXT
       },
-      star: {
+      stars: {
         type: Sequelize.DECIMAL
       },
       createdAt: {
