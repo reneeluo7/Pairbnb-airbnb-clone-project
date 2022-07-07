@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.TEXT,
       allowNull:false,
     },
-    star: {
+    stars: {
       type:DataTypes.DECIMAL,
       allowNull:false,
     }

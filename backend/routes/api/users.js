@@ -61,9 +61,8 @@ const verifyUser = (req, _res, next) => {
   const emailExist = async(req, _res, next) => {
    
     const email = req.body.email;
-    const user = await User.findOne({where: {email}})
-    console.log(user)
-    
+    const user = await User.findOne({where: {email}});
+        
     if (user) {
       const err = new Error ('User with that email already exists');
       err.status = 403;
