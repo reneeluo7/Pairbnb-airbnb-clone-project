@@ -132,14 +132,15 @@ router.get('/:id', validateSpot, async (req, res) => {
 
 //get all spots
 router.get('/', async (req, res) => {
-
     const spots = await Spot.findAll();
     res.json({ spots });
 });
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:id/reviews', requireAuth,  )
+router.post('/:id/reviews', requireAuth, async(req, res) => {
+    const { review, star } = req.body;
+})
 
 
 

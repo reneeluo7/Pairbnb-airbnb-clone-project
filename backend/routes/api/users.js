@@ -126,7 +126,7 @@ requireAuth,
 verifyUser,
 async (req, res) => {
 
-    const reviews = await Review.findAll({
+    const Reviews = await Review.findAll({
         where: {
             userId: req.params.id
         },
@@ -142,7 +142,7 @@ async (req, res) => {
          }
         ]
     });
-    res.json({ reviews });
+    res.json({ Reviews });
 });
 
 
