@@ -58,10 +58,11 @@ const verifyUser = (req, _res, next) => {
 
   // to check if the email is been used
   
-  const emailExist = (req, _res, next) => {
+  const emailExist = async(req, _res, next) => {
    
     const email = req.body.email;
-    const user = User.findOne({where: {email}})
+    const user = await User.findOne({where: {email}})
+    
     if (user ) {
       const err = new Error ('User with that email already exists');
       err.status = 403;

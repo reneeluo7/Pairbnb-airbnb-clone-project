@@ -74,6 +74,22 @@ const verifySpotOwner = async (req, _res, next) => {
     next();
 };
 
+// Get all Reviews by a Spot's id
+router.get('/:id/reviews', validateSpot, async(req, res) => {
+    const Reviews = await Review.findAll({
+        where: {
+            spotId: req.params.id
+        },
+        include: [{
+            model: User,
+            attributes:['id', 'firstName', 'lastName']
+        }, {
+            model:Image,
+            attributes:['url']
+        }]
+    });
+    res.json({Reviews})
+})
 
 
 
@@ -120,6 +136,10 @@ router.get('/', async (req, res) => {
     const spots = await Spot.findAll();
     res.json({ spots });
 });
+
+
+// Create a Review for a Spot based on the Spot's id
+router.post('/:id/reviews', requireAuth,  )
 
 
 
