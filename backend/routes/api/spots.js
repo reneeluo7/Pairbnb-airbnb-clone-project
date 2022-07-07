@@ -88,7 +88,7 @@ const validateCreateReview = [
 ];
 
 // to check if the review is created by the exist user
-const reviewExist = async (req, res, next) => {
+const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
     const review = await Review.findOne({where:{userId}});
     if (review){
@@ -173,7 +173,7 @@ router.post('/:id/reviews', requireAuth, validateSpot, reviewExist,validateCreat
         userId, spotId, review, stars
     });
     res.json(newReview);
-})
+});
 
 
 

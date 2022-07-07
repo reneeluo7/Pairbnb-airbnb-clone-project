@@ -53,7 +53,7 @@ router.get('/:id', validateReview, async (req, res) => {
     res.json(review);
 });
 
-// Get a review by review id
+// Get all reviews 
 router.get('/', async (req, res) => {
     const reviews = await Review.findAll();
     res.json(reviews);
