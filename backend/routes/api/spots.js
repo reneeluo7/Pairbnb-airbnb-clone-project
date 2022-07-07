@@ -91,9 +91,9 @@ const validateCreateReview = [
 const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
     const spotId = req.params.id;
-    const review = await Review.findOne({ where: { userId, spotId } });
+    const review = await Review.findAll({ where: { userId, spotId } });
     // console.log(review)
-    if (review) {
+    if (review.length) {
         const err = new Error('User already has a review for this spot');
         err.status = 403;
         next(err);
