@@ -12,7 +12,7 @@ const { Spot, sequelize, Review, Image, User } = require('../../db/models');
 // to check if a spot is valid
 const validateSpot = async (req, _res, next) => {
     const spot = await Spot.findByPk(req.params.id);
-    
+
     if (!spot) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
@@ -40,11 +40,11 @@ const validateCreateSpot = [
         .withMessage('Country is required'),
     check('lat')
         .exists()
-        .isFloat({min:-90, max:90})
+        .isFloat({ min: -90, max: 90 })
         .withMessage('Latitude is not valid'),
     check('lng')
         .exists()
-        .isFloat({min:-180, max:180})
+        .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude is not valid'),
     check('name')
         .exists({ checkFalsy: true })
@@ -64,10 +64,10 @@ const validateCreateSpot = [
 // to check if manipulate by spot owner
 const verifySpotOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
-    const spot = await Spot.findByPk( req.params.id )
-    
-    if (Number(requestuserId) !== spot.ownerId ) {
-        const err = new Error ('Forbidden');
+    const spot = await Spot.findByPk(req.params.id)
+
+    if (Number(requestuserId) !== spot.ownerId) {
+        const err = new Error('Forbidden');
         err.status = 403;
         next(err);
     };
@@ -83,7 +83,7 @@ const validateCreateReview = [
     check('stars')
         .exists({ checkFalsy: true })
         .isInt({ min: 1, max: 5 })
-        .withMessage('Stars must be an integer from 1 to 5'),    
+        .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
 
@@ -91,11 +91,11 @@ const validateCreateReview = [
 const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
     const spotId = req.params.id;
-    const review = await Review.findOne({where:{userId, spotId}});
-    if (review){
-        const err = new Error ('User already has a review for this spot');
-      err.status = 403;
-      next(err);
+    const review = await Review.findOne({ where: { userId, spotId } });
+    if (review) {
+        const err = new Error('User already has a review for this spot');
+        err.status = 403;
+        next(err);
     };
     next();
 };
@@ -103,20 +103,20 @@ const reviewExist = async (req, _res, next) => {
 
 
 // Get all Reviews by a Spot's id
-router.get('/:id/reviews', validateSpot, async(req, res) => {
-    const Reviews = await Review.findAll({
+router.get('/:id/reviews', validateSpot, async (req, res) => {
+    const reviews = await Review.findAll({
         where: {
             spotId: req.params.id
         },
         include: [{
             model: User,
-            attributes:['id', 'firstName', 'lastName']
+            attributes: ['id', 'firstName', 'lastName']
         }, {
-            model:Image,
-            attributes:['url']
+            model: Image,
+            attributes: ['url']
         }]
     });
-    res.json({Reviews})
+    res.json({ Reviews: reviews })
 })
 
 
@@ -126,7 +126,7 @@ router.get('/:id/reviews', validateSpot, async(req, res) => {
 router.get('/:id', validateSpot, async (req, res) => {
 
     const spot = await Spot.findByPk(req.params.id);
-   
+
     const reviews = await spot.getReviews();
     const avgStarRating = reviews.map(el => el.stars).reduce((a, b) => a + b, 0) / reviews.length;
 
@@ -166,9 +166,9 @@ router.get('/', async (req, res) => {
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:id/reviews', requireAuth, validateSpot, reviewExist,validateCreateReview, async(req, res) => {
+router.post('/:id/reviews', requireAuth, validateSpot, reviewExist, validateCreateReview, async (req, res) => {
     const { review, stars } = req.body;
-    const userId = req.user.id;    
+    const userId = req.user.id;
     const spotId = req.params.id;
     const newReview = await Review.create({
         userId, spotId, review, stars
@@ -180,12 +180,12 @@ router.post('/:id/reviews', requireAuth, validateSpot, reviewExist,validateCreat
 
 //Create a Spot
 router.post('/',
-    requireAuth,    
+    requireAuth,
     validateCreateSpot,
 
     async (req, res) => {
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
-        
+
         const ownerId = req.user.id;
         const newspot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
@@ -226,17 +226,17 @@ router.put('/:id',
 router.delete('/:id',
     requireAuth,
     validateSpot,
-    verifySpotOwner,    
+    verifySpotOwner,
 
     async (req, res) => {
         const spot = await Spot.findByPk(req.params.id);
-       
+
         await spot.destroy();
 
         res.json({
             "message": "Successfully deleted",
-            "statusCode": 200 
-          });
+            "statusCode": 200
+        });
     });
 
 

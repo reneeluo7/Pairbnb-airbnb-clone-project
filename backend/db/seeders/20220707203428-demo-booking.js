@@ -5,42 +5,42 @@ module.exports = {
     
   await queryInterface.bulkInsert('Bookings', [
     {
-        name: 'John Doe',
-        isBetaMember: false
+        spotId: 1,
+        userId: 2,
+        startDate: new Date("2022-09-30"), 
+        endDate: new Date("2022-09-30")
       },
     {
-        name: 'John Doe',
-        isBetaMember: false
+      spotId: 1,
+      userId: 2,
+      startDate: new Date("2022-10-03"),
+      endDate: new Date("2022-10-07")
       },
     {
-        name: 'John Doe',
-        isBetaMember: false
-      },
-    {
-        name: 'John Doe',
-        isBetaMember: false
-      },
-    {
-        name: 'John Doe',
-        isBetaMember: false
-      },
-    {
-        name: 'John Doe',
-        isBetaMember: false
-      },
-    
-    
-    
-    
-    
-    
+      spotId: 3,
+      userId: 1,
+      startDate: new Date("2022-08-30"), 
+      endDate: new Date("2022-09-02")
+      }
+    // {
+    //   spotId: 2,
+    //   userId: 3,
+    //   startDate: Date.parse("2022-08-01"), 
+    //   endDate: Date.parse("2022-08-13")
+    //   },
+    // {
+    //   spotId: 2,
+    //   userId: 2,
+    //   startDate: Date.parse("2022-11-01"), 
+    //   endDate: Date.parse("2022-11-10")
+    //   }
     ], {});
   
   },
 
   async down (queryInterface, Sequelize) {
     
-     await queryInterface.bulkDelete('People', null, {});
+     await queryInterface.bulkDelete('Bookings', null, {});
    
   }
 };
