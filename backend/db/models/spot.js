@@ -108,6 +108,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    // scopes: {
+    //   attributes: {
+    //     exclude:["previewImage", "description", "createdAt", "updatedAt"]
+    //   }
+    // }
+    
   });
   return Spot;
 };

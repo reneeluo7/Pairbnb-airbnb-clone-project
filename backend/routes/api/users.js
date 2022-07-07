@@ -1,13 +1,15 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth, requireAuthorization } = require('../../utils/auth');
-const { User, Spot } = require('../../db/models');
+const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { User, Spot, Review, Image } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+
+// Validation Middlewares
 const validateSignup = [
     check('firstName')
       .exists({ checkFalsy: true })
@@ -38,14 +40,29 @@ const validateSignup = [
     handleValidationErrors
   ];
 
+  // Check user
+const verifyUser = (req, _res, next) => {
+    
+  const requestuserId = req.user.id
+  const paramsId = req.params.id
+  
+  if (Number(requestuserId) !== Number(paramsId)) {
+      const err = new Error ('Forbidden');
+      err.status = 403;
+      next(err)
+  }
+
+  next();
+}
 
 
   // to check if the email is been used
   
-  const emailExist = (req, _res, next) => {
+  const emailExist = async(req, _res, next) => {
    
     const email = req.body.email;
-    const user = User.findOne({where: {email}})
+    const user = await User.findOne({where: {email}})
+    
     if (user ) {
       const err = new Error ('User with that email already exists');
       err.status = 403;
@@ -53,8 +70,8 @@ const validateSignup = [
         "email": "User with that email already exists"
       }
       err.message = "User already exists";
-      next(err)
-  } 
+      next(err);
+  };
     next();
   };
 
@@ -90,9 +107,8 @@ router.post(
 
 // get all spots from current user
   router.get('/:id/spots',
-
     requireAuth,
-    requireAuthorization,
+    verifyUser,
     async (req, res) => {
 
         const spots = await Spot.findAll({
@@ -102,5 +118,33 @@ router.post(
         });
         res.json({ spots });
     });
+
+// get all reviews from current user
+router.get('/:id/reviews',
+requireAuth,
+verifyUser,
+async (req, res) => {
+
+    const reviews = await Review.findAll({
+        where: {
+            userId: req.params.id
+        },
+        include: [{ 
+          model: User,
+          attributes:['id', 'firstName', 'lastName']
+         }, {
+          model: Spot,
+          attributes: {exclude: ["previewImage", "description", "createdAt", "updatedAt"]}
+         }, {
+          model: Image,
+          attributes:['url']
+         }
+        ]
+    });
+    res.json({ reviews });
+});
+
+
+
 
 module.exports = router;
