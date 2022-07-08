@@ -3,13 +3,10 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-
-
-
 const { Spot, sequelize, Review, Image, User, Booking } = require('../../db/models');
+const { Op, where } = require("sequelize");
 
-
-//Validate Middlewares
+ /* Middlewares */
 // to check if a spot is valid
 const validateSpot = async (req, _res, next) => {
     const spot = await Spot.findByPk(req.params.id);
@@ -62,6 +59,7 @@ const validateCreateSpot = [
         .withMessage('Description is required'),
     handleValidationErrors
 ];
+
 // to check if manipulate by spot owner
 const verifySpotOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
@@ -74,6 +72,7 @@ const verifySpotOwner = async (req, _res, next) => {
     };
     next();
 };
+
 // to check if booking by spot owner
 const SpotOwnerbooking = async (req, _res, next) => {
     const requestuserId = req.user.id;
@@ -86,6 +85,7 @@ const SpotOwnerbooking = async (req, _res, next) => {
     };
     next();
 };
+
 // create review validation 
 const validateCreateReview = [
     check('review')
@@ -104,7 +104,7 @@ const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
     const spotId = req.params.id;
     const review = await Review.findAll({ where: { userId, spotId } });
-    // console.log(review)
+    
     if (review.length) {
         const err = new Error('User already has a review for this spot');
         err.status = 403;
@@ -160,8 +160,37 @@ const validBookingDate = async (req, _res, next) => {
     next();
 };
 
+// check query validate
+const validQuery = [
+    check('page')
+        .custom(v => v == undefined || ( v >= 0))
+        .withMessage('Page must be greater than or equal to 0'),
+    check('size')
+        .custom(v => v == undefined || ( v >= 0))
+        .withMessage('Size must be greater than or equal to 0'),
+    check('maxLat')        
+        .custom(v => v == undefined || ( v >= -90 && v <= 90))
+        .withMessage('Maximum latitude is invalid'),
+    check('minLat')        
+        .custom(v => v == undefined || ( v >= -90 && v <= 90))
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLng')        
+        .custom(v => v == undefined || ( v >= -180 && v <= 180))
+        .withMessage('Maximum longitude is invalid'),
+    check('minLng')        
+        .custom(v => v == undefined || ( v >= -180 && v <= 180))
+        .withMessage('Minimum longitude is invalid'),
+    check('minPrice')        
+        .custom(v => v == undefined || ( v > 0))
+        .withMessage('Minimum price must be greater than 0'),
+    check('maxPrice')        
+        .custom(v => v == undefined || ( v > 0))
+        .withMessage('Maximum price must be greater than 0'),
+    handleValidationErrors
+];
 
 
+/* Endpoints */
 // Get all Reviews by a Spot's id
 router.get('/:id/reviews', validateSpot, async (req, res) => {
     const reviews = await Review.findAll({
@@ -178,6 +207,7 @@ router.get('/:id/reviews', validateSpot, async (req, res) => {
     });
     res.json({ Reviews: reviews });
 });
+
 
 // Get all Bookings for a Spot based on the Spot's id
 router.get('/:id/bookings', validateSpot, async (req, res) => {
@@ -201,9 +231,7 @@ router.get('/:id/bookings', validateSpot, async (req, res) => {
 
     res.json({ Bookings: bookings });
 
-})
-
-
+});
 
 
 // Get details of a Spot from an id
@@ -241,25 +269,69 @@ router.get('/:id', validateSpot, async (req, res) => {
 
 
 //get all spots
-router.get('/', async (_req, res) => {
-    const spots = await Spot.findAll();
-    res.json({ spots });
+router.get('/', validQuery, async (req, res) => {
+    let query = {
+        where: {}        
+    };
+    const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
+    const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+    if (page >= 1 && size >= 1) {
+        query.limit = size;
+        query.offset = size * (page - 1);
+    };
+    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    // lat
+    if ( maxLat && minLat ) {
+        where.lat = {[Op.between]: [minLat, maxLat]}
+    }
+    if (!maxLat && minLat) {
+        where.lat = {[Op.gte]: minLat}
+    }
+    if (maxLat && !minLat) {
+        where.lat = {[Op.lte]: maxLat}
+    }
+    // lng
+    if (maxLng && minLng) {
+        where.lng = {[Op.between]: [minLng, maxLng]}
+    }
+    if (!maxLng && minLng) {
+        where.lng = {[Op.gte]: minLng}
+    }
+    if (maxLng && !minLng) {
+        where.lng = {[Op.lte]: maxLng}
+    }
+    // price 
+    if (maxPrice && minPrice) {
+        where.price = {[Op.between]: [minPrice, maxPrice]}
+    }
+    if (!maxPrice && minPrice) {
+        where.price = {[Op.gte]: minPrice}
+    }
+    if (maxPrice && !minPrice) {
+        where.price = {[Op.lte]: maxPrice}
+    }
+
+    const spots = await Spot.findAll(query);
+    res.json({ Spots: spots, page, size });
 });
-
-
-
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:id/reviews', requireAuth, validateSpot, reviewExist, validateCreateReview, async (req, res) => {
-    const { review, stars } = req.body;
-    const userId = req.user.id;
-    const spotId = req.params.id;
-    const newReview = await Review.create({
-        userId, spotId, review, stars
+router.post('/:id/reviews',
+    requireAuth,
+    validateSpot,
+    reviewExist,
+    validateCreateReview,
+    async (req, res) => {
+        const { review, stars } = req.body;
+        const userId = req.user.id;
+        const spotId = req.params.id;
+        const newReview = await Review.create({
+            userId, spotId, review, stars
+        });
+        res.json(newReview);
     });
-    res.json(newReview);
-});
+
 
 //Create a Booking from a Spot based on the Spot's id
 router.post('/:id/bookings', requireAuth, validateSpot, SpotOwnerbooking, validateCreateBooking, validBookingDate, async (req, res) => {
@@ -270,6 +342,7 @@ router.post('/:id/bookings', requireAuth, validateSpot, SpotOwnerbooking, valida
     const newbooking = await Booking.create({ spotId, userId, startDate, endDate });
     res.json(newbooking);
 });
+
 
 // Add an Image to a Spot based on the Spot's id
 router.post('/:id/images', requireAuth, validateSpot, verifySpotOwner, async (req, res) => {
@@ -291,7 +364,6 @@ router.post('/:id/images', requireAuth, validateSpot, verifySpotOwner, async (re
 });
 
 
-
 //Create a Spot
 router.post('/',
     requireAuth,
@@ -305,10 +377,6 @@ router.post('/',
 
         res.json(newspot);
     });
-
-
-
-
 
 
 // Edit a Spot
@@ -335,6 +403,7 @@ router.put('/:id',
 
         res.json(updatespot);
     });
+
 
 // Delete a Spot
 router.delete('/:id',
