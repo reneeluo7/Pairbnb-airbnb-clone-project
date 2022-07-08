@@ -271,6 +271,25 @@ router.post('/:id/bookings', requireAuth, validateSpot, SpotOwnerbooking, valida
     res.json(newbooking);
 });
 
+// Add an Image to a Spot based on the Spot's id
+router.post('/:id/images', requireAuth, validateSpot, verifySpotOwner, async (req, res) => {
+    const { url } = req.body;
+    
+    const spotId = req.params.id;
+    const imageableType = "Spot";
+    const spotimage = await Image.create({
+         spotId, imageableType, url
+    });
+    res.json(await Image.findByPk(spotimage.id, {
+        attributes:[
+            'id',
+            ['spotId', 'imageableId'],
+            'imageableType',
+            'url'
+        ]
+    }));
+});
+
 
 
 //Create a Spot
