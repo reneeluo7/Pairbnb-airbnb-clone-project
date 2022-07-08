@@ -3,91 +3,150 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require("sequelize");
 
-const { Spot, sequelize, Review, Image, User } = require('../../db/models');
+const { Spot, sequelize, Review, Image, User, Booking } = require('../../db/models');
 
 
 
 // Validationg Middlewares
 // to check is the review valide
-const validateReview = async (req, _res, next) => {
-    const review = await Review.findByPk(req.params.id);
+const validateBooking = async (req, _res, next) => {
+    const booking = await Booking.findByPk(req.params.id);
 
-    if (!review) {
-        const err = new Error("Review couldn't be found");
+    if (!booking) {
+        const err = new Error("Booking couldn't be found");
         err.status = 404;
         next(err);
     };
     next();
 };
-// to check if manipulate by review owner
-const verifyReviewOwner = async (req, _res, next) => {
+// to check if manipulate by booking owner
+const verifyBookingOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
-    const review = await Review.findByPk(req.params.id)
-
-    if (requestuserId !== review.userId) {
+    const booking = await Booking.findByPk(req.params.id);
+    
+    if (requestuserId !== booking.userId)  {
         const err = new Error('Forbidden');
         err.status = 403;
         next(err);
-    }
-
+    };
     next();
 };
-// create review validation 
-const validateCreateReview = [
-    check('review')
-        .exists({ checkFalsy: true })
-        .isLength({ min: 1 })
-        .withMessage('Review text is required'),
-    check('stars')
-        .exists({ checkFalsy: true })
-        .isInt({ min: 1, max: 5 })
-        .withMessage('Stars must be an integer from 1 to 5'),
-    handleValidationErrors
-];
+// to check if the booking is past
+const pastBooking = async (req, _res, next) => {
+    const booking = await Booking.findByPk(req.params.id);
+    const today = new Date().toISOString().slice(0, 10)
+    const err = new Error();
+    err.status = 400;
+    if (booking.endDate < today) {
+        err.message = "Past bookings can't be modified";        
+        next(err);
+    };
+    if(booking.startDate < today) {
+        err.message = "Bookings that have been started can't be deleted";        
+        next(err);
+    }
+    next();
+};
+// to check if authorized user to delete booking
+const authorizedDelete = async (req, _res, next) => {
+    const requestuserId = req.user.id;
+    const booking = await Booking.findByPk(req.params.id);
+    const spot = await Spot.findByPk(booking.spotId);
+    
+    if ((requestuserId !== booking.userId) && (requestuserId !== spot.ownerId)) {
+        const err = new Error('Forbidden');
+        err.status = 403;
+        next(err);
+    };
+    next();
+};
 
 
-// Get a review by review id
-router.get('/:id', validateReview, async (req, res) => {
-    const review = await Review.findByPk(req.params.id);
-    res.json(review);
-});
+// to check validate booking 
+const validateCreateBooking = (req, _res, next) => {
+    const { startDate, endDate } = req.body;
+    const err = new Error('Validation Error');
+    err.status = 400;
+    err.errors = {};
+    const today = new Date().toISOString().slice(0, 10)
+    if (!startDate || !endDate) {
+        err.errors.startDate = "Start date is required";
+        err.errors.endDate = "End date is required";
+        next(err);
+    }
+    if (startDate < today) {
+        err.errors.startDate = "Past bookings can't be modified";
+        next(err);
+    };
+    if (startDate > endDate) {
+        err.errors.endDate = "endDate cannot come before startDate";
+        next(err);
+    }
+    next();
+};
 
-// Get all reviews 
-router.get('/', async (req, res) => {
-    const reviews = await Review.findAll();
-    res.json(reviews);
-});
+// check booking date
+const validBookingDate = async (req, _res, next) => {
+    const { startDate, endDate } = req.body;
+    const booking = await Booking.findByPk(req.params.id)
+    const allbookings = await Booking.findAll({
+        where: {
+            spotId: booking.spotId,
+            id: {[Op.notIn]: [req.params.id]}
+        }
+    });      
+    
+    const err = new Error("Sorry, this spot is already booked for the specified dates");
+    err.status = 403;
+    err.errors = {};
+    
+    for(let booking of allbookings) {
+        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate || booking.endDate == startDate) ) {
+            err.errors = {
+                "startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"
+            };
+            next(err);
+        }
+        
+    }
+    next();
+};
 
-// Edit a Review
+
+
+
+// Edit a Booking
 router.put('/:id',
     requireAuth,
-    validateReview,
-    verifyReviewOwner,
-    validateCreateReview,
+    validateBooking,
+    verifyBookingOwner,
+    pastBooking,
+    validateCreateBooking,
+    validBookingDate,
 
     async (req, res) => {
-        const updateReview = await Review.findByPk(req.params.id);
-        const { review, stars } = req.body;
-        updateReview.review = review;
-        updateReview.stars = stars;
+        const updateBooking = await Booking.findByPk(req.params.id);
+        const { startDate, endDate } = req.body;
+        updateBooking.startDate = startDate;
+        updateBooking.endDate = endDate;
 
-        await updateReview.save();
+        await updateBooking.save();
 
-        res.json(updateReview);
+        res.json(updateBooking);
     });
 
-// Delete a Review
+// Delete a Booking
 router.delete('/:id',
     requireAuth,
-    validateReview,
-    verifyReviewOwner,
-
+    validateBooking,
+    authorizedDelete,
+    pastBooking,
     async (req, res) => {
-        const review = await Review.findByPk(req.params.id);
-
-        await review.destroy();
-
+        const booking = await Booking.findByPk(req.params.id);
+        await booking.destroy();
         res.json({
             "message": "Successfully deleted",
             "statusCode": 200

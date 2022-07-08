@@ -3,7 +3,7 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require("sequelize");
+
 
 
 const { Spot, sequelize, Review, Image, User, Booking } = require('../../db/models');
@@ -149,7 +149,7 @@ const validBookingDate = async (req, _res, next) => {
     err.errors = {};
     
     for(let booking of allbookings) {
-        if (booking.startDate < endDate && booking.endDate > startDate) {
+        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate || booking.endDate == startDate) ) {
             err.errors = {
                 "startDate": "Start date conflicts with an existing booking",
                 "endDate": "End date conflicts with an existing booking"
