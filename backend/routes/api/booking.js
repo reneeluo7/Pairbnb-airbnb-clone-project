@@ -109,8 +109,7 @@ const validBookingDate = async (req, _res, next) => {
                 "endDate": "End date conflicts with an existing booking"
             };
             next(err);
-        }
-        
+        }               
     }
     next();
 };
