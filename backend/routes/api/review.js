@@ -45,6 +45,23 @@ const validateCreateReview = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
+// check  less then 10 imgages for a review
+const imageCount = async (req, _res, next) => {
+    const totalImages = await Image.findAll({
+        where: {
+            imageableType: 'Review',
+            reviewId: req.params.id
+        }
+    });
+    if (totalImages.length >= 10) {
+        const err = new Error('Maximum number of images for this resource was reached');
+        err.status = 400;
+        next(err);
+    };
+    next();
+}
+
+
 
 
 // Get a review by review id
@@ -93,6 +110,30 @@ router.delete('/:id',
             "statusCode": 200
         });
     });
+
+// Add an Image to a Review based on the Review's id
+router.post('/:id/images',
+    requireAuth,
+    validateReview,
+    verifyReviewOwner,
+    imageCount,
+    async (req, res) => {
+        const { url } = req.body;
+        const reviewId = req.params.id;
+        const imageableType = "Review";
+        const reviewimage = await Image.create({
+            reviewId, imageableType, url
+        });
+        res.json(await Image.findByPk(reviewimage.id, {
+            attributes: [
+                'id',
+                ['reviewId', 'imageableId'],
+                'imageableType',
+                'url'
+            ]
+        }));
+    });
+
 
 
 module.exports = router;

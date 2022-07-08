@@ -49,7 +49,7 @@ const pastBooking = async (req, _res, next) => {
     }
     next();
 };
-// to check if authorized user to delete booking
+// to check if authorized user to delete a booking
 const authorizedDelete = async (req, _res, next) => {
     const requestuserId = req.user.id;
     const booking = await Booking.findByPk(req.params.id);
@@ -109,8 +109,7 @@ const validBookingDate = async (req, _res, next) => {
                 "endDate": "End date conflicts with an existing booking"
             };
             next(err);
-        }
-        
+        }               
     }
     next();
 };

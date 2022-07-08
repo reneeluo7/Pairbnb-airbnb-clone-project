@@ -139,17 +139,17 @@ const validateCreateBooking = (req, _res, next) => {
 // check booking date
 const validBookingDate = async (req, _res, next) => {
     const { startDate, endDate } = req.body;
-    
+
     const allbookings = await Booking.findAll({
-        where: {spotId: req.params.id}
-    });      
-    
+        where: { spotId: req.params.id }
+    });
+
     const err = new Error("Sorry, this spot is already booked for the specified dates");
     err.status = 403;
     err.errors = {};
-    
-    for(let booking of allbookings) {
-        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate || booking.endDate == startDate) ) {
+
+    for (let booking of allbookings) {
+        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate || booking.endDate == startDate)) {
             err.errors = {
                 "startDate": "Start date conflicts with an existing booking",
                 "endDate": "End date conflicts with an existing booking"
@@ -262,13 +262,32 @@ router.post('/:id/reviews', requireAuth, validateSpot, reviewExist, validateCrea
 });
 
 //Create a Booking from a Spot based on the Spot's id
-router.post('/:id/bookings', requireAuth, validateSpot, SpotOwnerbooking, validateCreateBooking,validBookingDate, async (req, res) => {
+router.post('/:id/bookings', requireAuth, validateSpot, SpotOwnerbooking, validateCreateBooking, validBookingDate, async (req, res) => {
     const spotId = req.params.id;
     const userId = req.user.id;
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
-    const newbooking = await Booking.create({ spotId, userId, startDate, endDate }); 
+    const newbooking = await Booking.create({ spotId, userId, startDate, endDate });
     res.json(newbooking);
+});
+
+// Add an Image to a Spot based on the Spot's id
+router.post('/:id/images', requireAuth, validateSpot, verifySpotOwner, async (req, res) => {
+    const { url } = req.body;
+
+    const spotId = req.params.id;
+    const imageableType = "Spot";
+    const spotimage = await Image.create({
+        spotId, imageableType, url
+    });
+    res.json(await Image.findByPk(spotimage.id, {
+        attributes: [
+            'id',
+            ['spotId', 'imageableId'],
+            'imageableType',
+            'url'
+        ]
+    }));
 });
 
 
