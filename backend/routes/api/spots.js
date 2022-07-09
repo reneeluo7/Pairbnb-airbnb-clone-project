@@ -287,7 +287,7 @@ router.get('/', validQuery, async (req, res) => {
     };
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     if (!page || isNaN(page) || page < 0) {
-        page = 0;
+        page = 1;
     }
     if (!size || isNaN(size) || size < 0) {
         size = 20;
