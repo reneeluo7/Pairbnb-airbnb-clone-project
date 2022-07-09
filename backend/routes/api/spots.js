@@ -273,42 +273,50 @@ router.get('/', validQuery, async (req, res) => {
     let query = {
         where: {}        
     };
-    const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
-    const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
-    if (page >= 1 && size >= 1) {
-        query.limit = size;
-        query.offset = size * (page - 1);
-    };
-    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    if (!page || isNaN(page) || page < 0) {
+        page = 1;
+      } 
+      if (!size || isNaN(size) || size < 0) {
+        size = 20;
+      }
+      if (size > 20) {
+        size = 20;
+      }
+      page = parseInt(page);
+      size = parseInt(size);
+      query.limit = size;
+      query.offset = size * (page - 1);
+    
     // lat
     if ( maxLat && minLat ) {
-        where.lat = {[Op.between]: [minLat, maxLat]}
+        query.where.lat = {[Op.between]: [minLat, maxLat]}
     }
     if (!maxLat && minLat) {
-        where.lat = {[Op.gte]: minLat}
+        query.where.lat = {[Op.gte]: minLat}
     }
     if (maxLat && !minLat) {
-        where.lat = {[Op.lte]: maxLat}
+        query.where.lat = {[Op.lte]: maxLat}
     }
     // lng
     if (maxLng && minLng) {
-        where.lng = {[Op.between]: [minLng, maxLng]}
+        query.where.lng = {[Op.between]: [minLng, maxLng]}
     }
     if (!maxLng && minLng) {
-        where.lng = {[Op.gte]: minLng}
+        query.where.lng = {[Op.gte]: minLng}
     }
     if (maxLng && !minLng) {
-        where.lng = {[Op.lte]: maxLng}
+        query.where.lng = {[Op.lte]: maxLng}
     }
     // price 
     if (maxPrice && minPrice) {
-        where.price = {[Op.between]: [minPrice, maxPrice]}
+        query.where.price = {[Op.between]: [minPrice, maxPrice]}
     }
     if (!maxPrice && minPrice) {
-        where.price = {[Op.gte]: minPrice}
+        query.where.price = {[Op.gte]: minPrice}
     }
     if (maxPrice && !minPrice) {
-        where.price = {[Op.lte]: maxPrice}
+        query.where.price = {[Op.lte]: maxPrice}
     }
 
     const spots = await Spot.findAll(query);
