@@ -56,7 +56,7 @@ const validateCreateSpot = [
     check('price')
         .exists({ checkFalsy: true })
         .isInt()
-        .withMessage('Description is required'),
+        .withMessage('Price per day is required'),
     handleValidationErrors
 ];
 
@@ -169,34 +169,34 @@ const validQuery = [
         .custom(v => v == undefined || (v >= 0))
         .withMessage('Size must be greater than or equal to 0'),
     check('maxLat')
-        .optional()
-        .isFloat({ min: -90, max: 90 })
-        // .custom(v => v == undefined || ( v >= -90 && v <= 90))
+        // .optional()
+        // .isFloat({ min: -90, max: 90 })
+        .custom(v => v == undefined || ( v >= -90 && v <= 90))
         .withMessage('Maximum latitude is invalid'),
     check('minLat')
-        .optional()
-        .isFloat({ min: -90, max: 90 })
-        // .custom(v => v == undefined || ( v >= -90 && v <= 90))
+        // .optional()
+        // .isFloat({ min: -90, max: 90 })
+        .custom(v => v == undefined || ( v >= -90 && v <= 90))
         .withMessage('Minimum latitude is invalid'),
     check('maxLng')
-        .optional()
-        .isFloat({ min: -180, max: 180 })
-        // .custom(v => v == undefined || ( v >= -180 && v <= 180))
+        // .optional()
+        // .isFloat({ min: -180, max: 180 })
+        .custom(v => v == undefined || ( v >= -180 && v <= 180))
         .withMessage('Maximum longitude is invalid'),
     check('minLng')
-        .optional()
-        .isFloat({ min: -180, max: 180 })
-        // .custom(v => v == undefined || ( v >= -180 && v <= 180))
+        // .optional()
+        // .isFloat({ min: -180, max: 180 })
+        .custom(v => v == undefined || ( v >= -180 && v <= 180))
         .withMessage('Minimum longitude is invalid'),
     check('minPrice')
-        .optional()
-        .isFloat({ min: 0 })
-        // .custom(v => v == undefined || ( v > 0))
+        // .optional()
+        // .isFloat({ min: 0 })
+        .custom(v => v == undefined || ( v > 0))
         .withMessage('Minimum price must be greater than 0'),
     check('maxPrice')
-        .optional()
-        .isFloat({ min: 0 })
-        // .custom(v => v == undefined || ( v > 0))
+        // .optional()
+        // .isFloat({ min: 0 })
+        .custom(v => v == undefined || ( v > 0))
         .withMessage('Maximum price must be greater than 0'),
     handleValidationErrors
 ];

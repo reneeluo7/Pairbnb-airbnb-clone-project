@@ -8,7 +8,7 @@ const { User, Spot, Review, Image, Booking } = require('../../db/models');
 const validateImage = async (req, _res, next) => {
     const image = await Image.findByPk(req.params.id);
     if (!image) {
-        const err = new Error("Booking couldn't be found");
+        const err = new Error("Image couldn't be found");
         err.status = 404;
         next(err);
     };
