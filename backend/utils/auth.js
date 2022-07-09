@@ -31,7 +31,7 @@ const setTokenCookie = (res, user) => {
 // Restore User
 const restoreUser = (req, res, next) => {
     // token parsed from cookies
-    
+
     const { token } = req.cookies;
     req.user = null;
 
@@ -55,7 +55,7 @@ const restoreUser = (req, res, next) => {
 // Require Auth
 // If there is no current user, return an error
 const requireAuth = (req, _res, next) => {
-    
+
     if (req.user) return next();
 
     const err = new Error('Unauthorized');

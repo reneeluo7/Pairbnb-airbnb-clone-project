@@ -6,7 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Spot, sequelize, Review, Image, User, Booking } = require('../../db/models');
 const { Op, where } = require("sequelize");
 
- /* Middlewares */
+/* Middlewares */
 // to check if a spot is valid
 const validateSpot = async (req, _res, next) => {
     const spot = await Spot.findByPk(req.params.id);
@@ -104,7 +104,7 @@ const reviewExist = async (req, _res, next) => {
     const userId = req.user.id;
     const spotId = req.params.id;
     const review = await Review.findAll({ where: { userId, spotId } });
-    
+
     if (review.length) {
         const err = new Error('User already has a review for this spot');
         err.status = 403;
@@ -163,28 +163,40 @@ const validBookingDate = async (req, _res, next) => {
 // check query validate
 const validQuery = [
     check('page')
-        .custom(v => v == undefined || ( v >= 0))
+        .custom(v => v == undefined || (v >= 0))
         .withMessage('Page must be greater than or equal to 0'),
     check('size')
-        .custom(v => v == undefined || ( v >= 0))
+        .custom(v => v == undefined || (v >= 0))
         .withMessage('Size must be greater than or equal to 0'),
-    check('maxLat')        
-        .custom(v => v == undefined || ( v >= -90 && v <= 90))
+    check('maxLat')
+        .optional()
+        .isFloat({ min: -90, max: 90 })
+        // .custom(v => v == undefined || ( v >= -90 && v <= 90))
         .withMessage('Maximum latitude is invalid'),
-    check('minLat')        
-        .custom(v => v == undefined || ( v >= -90 && v <= 90))
+    check('minLat')
+        .optional()
+        .isFloat({ min: -90, max: 90 })
+        // .custom(v => v == undefined || ( v >= -90 && v <= 90))
         .withMessage('Minimum latitude is invalid'),
-    check('maxLng')        
-        .custom(v => v == undefined || ( v >= -180 && v <= 180))
+    check('maxLng')
+        .optional()
+        .isFloat({ min: -180, max: 180 })
+        // .custom(v => v == undefined || ( v >= -180 && v <= 180))
         .withMessage('Maximum longitude is invalid'),
-    check('minLng')        
-        .custom(v => v == undefined || ( v >= -180 && v <= 180))
+    check('minLng')
+        .optional()
+        .isFloat({ min: -180, max: 180 })
+        // .custom(v => v == undefined || ( v >= -180 && v <= 180))
         .withMessage('Minimum longitude is invalid'),
-    check('minPrice')        
-        .custom(v => v == undefined || ( v > 0))
+    check('minPrice')
+        .optional()
+        .isFloat({ min: 0 })
+        // .custom(v => v == undefined || ( v > 0))
         .withMessage('Minimum price must be greater than 0'),
-    check('maxPrice')        
-        .custom(v => v == undefined || ( v > 0))
+    check('maxPrice')
+        .optional()
+        .isFloat({ min: 0 })
+        // .custom(v => v == undefined || ( v > 0))
         .withMessage('Maximum price must be greater than 0'),
     handleValidationErrors
 ];
@@ -271,52 +283,52 @@ router.get('/:id', validateSpot, async (req, res) => {
 //get all spots
 router.get('/', validQuery, async (req, res) => {
     let query = {
-        where: {}        
+        where: {}
     };
-    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     if (!page || isNaN(page) || page < 0) {
-        page = 1;
-      } 
-      if (!size || isNaN(size) || size < 0) {
+        page = 0;
+    }
+    if (!size || isNaN(size) || size < 0) {
         size = 20;
-      }
-      if (size > 20) {
+    }
+    if (size > 20) {
         size = 20;
-      }
-      page = parseInt(page);
-      size = parseInt(size);
-      query.limit = size;
-      query.offset = size * (page - 1);
-    
+    }
+    page = parseInt(page);
+    size = parseInt(size);
+    query.limit = size;
+    query.offset = size * (page - 1);
+
     // lat
-    if ( maxLat && minLat ) {
-        query.where.lat = {[Op.between]: [minLat, maxLat]}
+    if (maxLat && minLat) {
+        query.where.lat = { [Op.between]: [minLat, maxLat] }
     }
     if (!maxLat && minLat) {
-        query.where.lat = {[Op.gte]: minLat}
+        query.where.lat = { [Op.gte]: minLat }
     }
     if (maxLat && !minLat) {
-        query.where.lat = {[Op.lte]: maxLat}
+        query.where.lat = { [Op.lte]: maxLat }
     }
     // lng
     if (maxLng && minLng) {
-        query.where.lng = {[Op.between]: [minLng, maxLng]}
+        query.where.lng = { [Op.between]: [minLng, maxLng] }
     }
     if (!maxLng && minLng) {
-        query.where.lng = {[Op.gte]: minLng}
+        query.where.lng = { [Op.gte]: minLng }
     }
     if (maxLng && !minLng) {
-        query.where.lng = {[Op.lte]: maxLng}
+        query.where.lng = { [Op.lte]: maxLng }
     }
     // price 
     if (maxPrice && minPrice) {
-        query.where.price = {[Op.between]: [minPrice, maxPrice]}
+        query.where.price = { [Op.between]: [minPrice, maxPrice] }
     }
     if (!maxPrice && minPrice) {
-        query.where.price = {[Op.gte]: minPrice}
+        query.where.price = { [Op.gte]: minPrice }
     }
     if (maxPrice && !minPrice) {
-        query.where.price = {[Op.lte]: maxPrice}
+        query.where.price = { [Op.lte]: maxPrice }
     }
 
     const spots = await Spot.findAll(query);

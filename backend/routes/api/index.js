@@ -31,7 +31,7 @@ router.post('/test', (req, res) => {
 // GET /api/set-token-cookie
 const { setTokenCookie } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
-router.get('/set-token-cookie', async(_req, res) => {
+router.get('/set-token-cookie', async (_req, res) => {
   const user = await User.findOne({
     where: {
       username: 'Demo-lition'
@@ -41,16 +41,14 @@ router.get('/set-token-cookie', async(_req, res) => {
   return res.json(user);
 });
 
+
 // GET /api/restore-user
-
-
-
 router.use(restoreUser);
 
 router.get(
   '/restore-user',
   (req, res) => {
-    
+
     return res.json(req.user);
   }
 );
@@ -71,6 +69,6 @@ router.get(
 
 
 
-  
+
 
 module.exports = router;
