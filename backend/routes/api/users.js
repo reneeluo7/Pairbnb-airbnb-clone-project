@@ -8,8 +8,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+/* Middlewares */
 
-// Validation Middlewares
 const validateSignup = [
   check('firstName')
     .exists({ checkFalsy: true })
@@ -42,17 +42,16 @@ const validateSignup = [
 // Check user
 const verifyUser = (req, _res, next) => {
 
-  const requestuserId = req.user.id
-  const paramsId = req.params.id
+  const requestuserId = req.user.id;
+  const paramsId = req.params.id;
 
   if (Number(requestuserId) !== Number(paramsId)) {
     const err = new Error('Forbidden');
     err.status = 403;
     next(err)
   }
-
   next();
-}
+};
 
 
 // to check if the email is been used
@@ -75,7 +74,7 @@ const emailExist = async (req, _res, next) => {
 };
 
 
-
+/* POST method route */
 // Sign up
 router.post(
   '/',
@@ -104,6 +103,7 @@ router.post(
   }
 );
 
+/* GET method route */
 // get all spots from current user
 router.get('/:id/spots',
   requireAuth,

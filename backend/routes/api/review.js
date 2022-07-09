@@ -4,11 +4,11 @@ const { check } = require('express-validator');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const { Spot, sequelize, Review, Image, User } = require('../../db/models');
+const { Spot, Review, Image, User } = require('../../db/models');
 
 
 
-// Validationg Middlewares
+/* Middlewares */
 // to check is the review valide
 const validateReview = async (req, _res, next) => {
     const review = await Review.findByPk(req.params.id);
@@ -23,14 +23,13 @@ const validateReview = async (req, _res, next) => {
 // to check if manipulate by review owner
 const verifyReviewOwner = async (req, _res, next) => {
     const requestuserId = req.user.id;
-    const review = await Review.findByPk(req.params.id)
+    const review = await Review.findByPk(req.params.id);
 
     if (requestuserId !== review.userId) {
         const err = new Error('Forbidden');
         err.status = 403;
         next(err);
-    }
-
+    };
     next();
 };
 // create review validation 
@@ -45,7 +44,7 @@ const validateCreateReview = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
-// check  less then 10 imgages for a review
+// check less then 10 imgages for a review
 const imageCount = async (req, _res, next) => {
     const totalImages = await Image.findAll({
         where: {
@@ -59,11 +58,11 @@ const imageCount = async (req, _res, next) => {
         next(err);
     };
     next();
-}
+};
 
 
 
-
+/* GET method route */
 // Get a review by review id
 router.get('/:id', validateReview, async (req, res) => {
     const review = await Review.findByPk(req.params.id);
@@ -76,6 +75,8 @@ router.get('/', async (req, res) => {
     res.json(reviews);
 });
 
+
+/* PUT method route */
 // Edit a Review
 router.put('/:id',
     requireAuth,
@@ -94,6 +95,7 @@ router.put('/:id',
         res.json(updateReview);
     });
 
+/* DELETE method route */
 // Delete a Review
 router.delete('/:id',
     requireAuth,
@@ -111,6 +113,7 @@ router.delete('/:id',
         });
     });
 
+/* POST method route */
 // Add an Image to a Review based on the Review's id
 router.post('/:id/images',
     requireAuth,

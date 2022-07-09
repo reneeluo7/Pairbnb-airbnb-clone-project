@@ -6,7 +6,7 @@ const { Spot, Review, Image, User, Booking } = require('../../db/models');
 
 
 
-// Validationg Middlewares
+/* Middlewares */
 // to check is the review valide
 const validateBooking = async (req, _res, next) => {
     const booking = await Booking.findByPk(req.params.id);
@@ -59,9 +59,7 @@ const authorizedDelete = async (req, _res, next) => {
     };
     next();
 };
-
-
-// to check validate booking 
+// validate booking request
 const validateCreateBooking = (req, _res, next) => {
     const { startDate, endDate } = req.body;
     const err = new Error('Validation Error');
@@ -83,7 +81,6 @@ const validateCreateBooking = (req, _res, next) => {
     }
     next();
 };
-
 // check booking date
 const validBookingDate = async (req, _res, next) => {
     const { startDate, endDate } = req.body;
@@ -112,8 +109,7 @@ const validBookingDate = async (req, _res, next) => {
 };
 
 
-
-
+/* PUT method route */
 // Edit a Booking
 router.put('/:id',
     requireAuth,
@@ -134,6 +130,8 @@ router.put('/:id',
         res.json(updateBooking);
     });
 
+
+/* DELETE method route */
 // Delete a Booking
 router.delete('/:id',
     requireAuth,

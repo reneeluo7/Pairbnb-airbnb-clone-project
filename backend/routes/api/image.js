@@ -1,10 +1,9 @@
 const express = require('express');
-
+const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, Image, Booking } = require('../../db/models');
 
-const router = express.Router();
-
+/* Middlewares */
 // to check is the review valide
 const validateImage = async (req, _res, next) => {
     const image = await Image.findByPk(req.params.id);
@@ -32,7 +31,7 @@ const authorizedDelete = async (req, _res, next) => {
     }
 };
 
-
+/* DELETE method route */
 // Delete an Image
 router.delete('/:id',
     requireAuth,

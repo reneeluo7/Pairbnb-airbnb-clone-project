@@ -190,7 +190,7 @@ const validQuery = [
 ];
 
 
-/* Endpoints */
+/* GET method route */
 // Get all Reviews by a Spot's id
 router.get('/:id/reviews', validateSpot, async (req, res) => {
     const reviews = await Review.findAll({
@@ -323,7 +323,7 @@ router.get('/', validQuery, async (req, res) => {
     res.json({ Spots: spots, page, size });
 });
 
-
+/* POST method route */
 // Create a Review for a Spot based on the Spot's id
 router.post('/:id/reviews',
     requireAuth,
@@ -386,7 +386,7 @@ router.post('/',
         res.json(newspot);
     });
 
-
+/* PUT method route */
 // Edit a Spot
 router.put('/:id',
     requireAuth,
@@ -412,7 +412,7 @@ router.put('/:id',
         res.json(updatespot);
     });
 
-
+/* DELETE method route */
 // Delete a Spot
 router.delete('/:id',
     requireAuth,
