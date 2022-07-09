@@ -3,7 +3,7 @@
 
 ## Database Schema Design
 
-`![airbnb-backend-project (3)](https://user-images.githubusercontent.com/103155560/177633980-0604949e-57b1-4a37-a8fd-5d96e84cef15.png)`
+![airbnb-backend-project (3)](https://user-images.githubusercontent.com/103155560/177633980-0604949e-57b1-4a37-a8fd-5d96e84cef15.png)
 
 ## API Documentation
 
