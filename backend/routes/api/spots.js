@@ -120,9 +120,9 @@ const validateCreateBooking = (req, _res, next) => {
     err.status = 400;
     err.errors = {};
     const today = new Date().toISOString().slice(0, 10)
-    if (!startDate || !endDate) {
-        err.errors.startDate = "Start date is required";
-        err.errors.endDate = "End date is required";
+    if (!Date.parse(startDate) || !Date.parse(endDate)) {
+        err.errors.startDate = "Valid start date is required";
+        err.errors.endDate = "Valid end date is required";
         next(err);
     }
     if (startDate < today) {
@@ -149,7 +149,7 @@ const validBookingDate = async (req, _res, next) => {
     err.errors = {};
 
     for (let booking of allbookings) {
-        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate || booking.endDate == startDate)) {
+        if ((booking.startDate < endDate && booking.endDate > startDate) || (booking.startDate == startDate && booking.endDate == endDate)) {
             err.errors = {
                 "startDate": "Start date conflicts with an existing booking",
                 "endDate": "End date conflicts with an existing booking"
