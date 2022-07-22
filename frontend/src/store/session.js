@@ -17,6 +17,7 @@ const removeUser = () => {
 };
 
 export const login = (user) => async (dispatch) => {
+  console.log('session action login running-------')
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
     method: 'POST',
@@ -32,6 +33,45 @@ export const login = (user) => async (dispatch) => {
 };
 
 const initialState = { user: null };
+
+
+
+export const restoreUser = () => async dispatch => {
+  console.log('session action restoreuser running-------')
+  const response = await csrfFetch('/api/session');
+  console.log('RESPINSE', response)
+  const data = await response.json();
+  console.log('DATA in restoreUser', data)
+  dispatch(setUser(data));
+  return response;
+};
+
+export const signup = (user) => async (dispatch) => {
+  const { firstName, lastName, email, password } = user;
+ 
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    // headers:{"Content-Type": "Application/json"},
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  // console.log('DATA-------', data)
+  dispatch(setUser(data));
+  return response;
+};
+
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+};
 
 const sessionReducer = (state = initialState, action) => {
   let newState;

@@ -8,6 +8,11 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+// router.use((req, res, next) => {
+//   console.log('something userRouter')
+//   next()
+// })
+
 /* Middlewares */
 
 const validateSignup = [
@@ -76,6 +81,7 @@ const emailExist = async (req, _res, next) => {
 
 /* POST method route */
 // Sign up
+
 router.post(
   '/',
   validateSignup,
@@ -83,9 +89,10 @@ router.post(
   emailExist,
 
   async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
+    console.log('singupuser --backend',req.body )
+    const { firstName, lastName, email, password } = req.body;
 
-    const user = await User.signup({ email, firstName, lastName, password });
+    const user = await User.signup({  firstName, lastName, email, password });
 
     const token = await setTokenCookie(res, user);
 
