@@ -21,17 +21,20 @@ function LoginFormPage() {
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        // console.log('data-----', data)
+        if (data && data.message) setErrors(Object.values(data));
       });
   }
-
+  // console.log("ERROR", errors)
   return (
     <form onSubmit={handleSubmit}>
       <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        {/* {errors.map((error, idx) => { */}
+         { errors.length > 0 &&<li >{errors[0]}</li>
+        }
       </ul>
       <label>
-        Username or Email
+        Email
         <input
           type="text"
           value={credential}
