@@ -89,7 +89,7 @@ router.post(
   emailExist,
 
   async (req, res) => {
-    console.log('singupuser --backend',req.body )
+    
     const { firstName, lastName, email, password } = req.body;
 
     const user = await User.signup({  firstName, lastName, email, password });
