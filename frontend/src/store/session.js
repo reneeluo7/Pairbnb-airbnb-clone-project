@@ -17,7 +17,7 @@ const removeUser = () => {
 };
 
 export const login = (user) => async (dispatch) => {
-  console.log('session action login running-------')
+  // console.log('session action login running-------')
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
     method: 'POST',
@@ -37,11 +37,11 @@ const initialState = { user: null };
 
 
 export const restoreUser = () => async dispatch => {
-  console.log('session action restoreuser running-------')
+  // console.log('session action restoreuser running-------')
   const response = await csrfFetch('/api/session');
-  console.log('RESPINSE', response)
+  // console.log('RESPINSE', response)
   const data = await response.json();
-  console.log('DATA in restoreUser', data)
+  // console.log('DATA in restoreUser', data)
   dispatch(setUser(data));
   return response;
 };
