@@ -259,6 +259,7 @@ router.get('/:id', validateSpot, async (req, res) => {
         name: spot.name,        
         description: spot.description,
         price: spot.price,
+        previewImage: spot.previewImage,
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         numReviews: reviews.length,
