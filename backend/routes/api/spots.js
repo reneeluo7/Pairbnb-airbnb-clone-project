@@ -383,10 +383,10 @@ router.post('/',
     validateCreateSpot,
 
     async (req, res) => {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
         const ownerId = req.user.id;
-        const newspot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
+        const newspot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price, previewImage });
 
         res.json(newspot);
     });

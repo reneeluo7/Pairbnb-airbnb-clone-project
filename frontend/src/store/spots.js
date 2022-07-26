@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const LOAD = 'spots/LOAD';
 const GET_ONE = 'spots/GET_ONE';
 const DELETE = 'spots/DELETE';
+const ADD_ONE= 'spots/ADD_ONE';
 
 // actions
 const load = (spots) => ({
@@ -18,6 +19,10 @@ const loadOne = (payload) => ({
 const deleteOne = (id) => ({
     type: DELETE,
     id
+})
+const addOne = (spot) => ({
+    type: ADD_ONE,
+    spot
 })
 
 
@@ -47,7 +52,7 @@ export const getSpotsByUser = (id) => async dispatch => {
     const response = await csrfFetch(`/api/users/${id}/spots`);
     if (response.ok) {
         const data = await response.json();
-        console.log('fetch from backend getSpotsbyUser data----', data)
+        // console.log('fetch from backend getSpotsbyUser data----', data)
         dispatch(load(data.spots));
         return response;
     }
@@ -59,6 +64,30 @@ export const deleteSpot = (id) => async dispatch => {
     });
     dispatch(deleteOne(id));
     return response;
+}
+export const creasteSpot = (newList) => async dispatch => {
+    const {address, city, state, country, lat, lng, name, description, price, previewImage} = newList
+    const response = await csrfFetch(`/api/spots/`, {
+        method: 'POST',
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price,
+            previewImage,
+        })
+    });
+    if(response.ok) {
+        const data = await response.json();
+        console.log("data from backend create spot", data)
+        dispatch(addOne(data));
+        return response;
+    }
 }
 
 
@@ -83,6 +112,11 @@ const spotsReducer = (state = {}, action) => {
         case DELETE: 
             newState = {...state}
             delete newState[action.id]
+        return newState;
+
+        case ADD_ONE: 
+            newState = {...state}
+            newState[action.payload.id] = action.payload
         return newState;
         
         default:

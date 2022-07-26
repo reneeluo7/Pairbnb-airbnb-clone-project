@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import MyListings from './MyListings'
+import ListingFormmModal from '../ListingFormModal'
 
 function ManageListings() {
     const {id} = useParams()
@@ -9,7 +10,7 @@ function ManageListings() {
         <div className="listing-page-container">
         <h1>Manage My Listings</h1>
         <div className="create-new-listing-btn">
-            <button onClick={() => console.log('create')}>Create New Listing</button>
+         <ListingFormmModal />
         </div>
         <div className="my-listings">
             <h2>My Listings</h2>

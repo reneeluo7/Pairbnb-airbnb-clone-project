@@ -33,7 +33,7 @@ function MyListings({id}) {
                                         <button>Edit</button>
                                     </span>
                                     <span className="spot-delete"
-                                        onClick={() => dispatch(deleteSpot(id))}
+                                        onClick={() => dispatch(deleteSpot(spot.id))}
                                     >
                                         <button>Delete</button>
                                     </span>
