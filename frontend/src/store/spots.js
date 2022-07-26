@@ -1,7 +1,9 @@
+import { csrfFetch } from "./csrf";
 
 
 const LOAD = 'spots/LOAD';
 const GET_ONE = 'spots/GET_ONE';
+const DELETE = 'spots/DELETE';
 
 // actions
 const load = (spots) => ({
@@ -12,6 +14,10 @@ const load = (spots) => ({
 const loadOne = (payload) => ({
     type: GET_ONE,
     payload
+})
+const deleteOne = (id) => ({
+    type: DELETE,
+    id
 })
 
 
@@ -31,11 +37,30 @@ export const getOneSpot = (id) => async dispatch => {
     const response = await fetch(`/api/spots/${id}`);
     if (response.ok) {
         const data = await response.json();
-        console.log('fetch from backend get1spot data----', data)
+        // console.log('fetch from backend get1spot data----', data)
         dispatch(loadOne(data));
         return response;
     }
 }
+
+export const getSpotsByUser = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/users/${id}/spots`);
+    if (response.ok) {
+        const data = await response.json();
+        console.log('fetch from backend getSpotsbyUser data----', data)
+        dispatch(load(data.spots));
+        return response;
+    }
+}
+
+export const deleteSpot = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${id}`, {
+        method: 'DELETE'
+    });
+    dispatch(deleteOne(id));
+    return response;
+}
+
 
 
 
@@ -53,6 +78,11 @@ const spotsReducer = (state = {}, action) => {
         case GET_ONE: 
             newState = {...state}
             newState[action.payload.id] = action.payload
+        return newState;
+
+        case DELETE: 
+            newState = {...state}
+            delete newState[action.id]
         return newState;
         
         default:

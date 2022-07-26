@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getSpots } from '../../store/spots';
+import './SpotsBrowser.css';
 
 const SpotsBrowser = () => {
   
     const dispatch = useDispatch();
     const spots = useSelector(state => Object.values(state.spots))
-    console.log("spots from useSelector -----",spots)
+    // console.log("spots from useSelector -----",spots)
 
     useEffect(() => {
         dispatch(getSpots())
@@ -24,11 +25,11 @@ const SpotsBrowser = () => {
                                 </div>
                                 <div className="spot-info">
                                     <div className="spot-location">{`${spot.city}, ${spot.state}`}</div>
-                                    <div className="estimated-info">
+                                    {/* <div className="estimated-info">
                                         <div>166 miles away</div>
                                         <div>Sep 24-29</div>
-                                    </div>
-                                    <div className="spot-price"><span>${spot.price}</span>night</div>
+                                    </div> */}
+                                    <div className="spot-price"><span>${spot.price}</span> night</div>
                                 </div>
                             </div>
 

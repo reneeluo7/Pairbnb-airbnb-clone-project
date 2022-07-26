@@ -24,7 +24,7 @@ const SpotDetail = () => {
                     <div className="spot-detail-title-lower-left">
 
                         <span className="review-detail">
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                             <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
 
                             <span className="review-counts">{`${spot.numReviews} reviews`}</span>
@@ -56,7 +56,7 @@ const SpotDetail = () => {
                     <div className="spot-detail-info-description">{spot.description}</div>
                     <div className="spot-detail-info-reviews">
                         <div className="spot-detail-info-reviews-topbar">
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                             <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
 
                             <span className="review-counts">{`${spot.numReviews} reviews`}</span>
