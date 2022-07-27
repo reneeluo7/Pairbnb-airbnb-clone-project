@@ -4,7 +4,7 @@ import { csrfFetch } from "./csrf";
 const LOAD = 'spots/LOAD';
 const GET_ONE = 'spots/GET_ONE';
 const DELETE = 'spots/DELETE';
-const ADD_ONE= 'spots/ADD_ONE';
+const ADD_ONE = 'spots/ADD_ONE';
 
 
 // actions
@@ -68,7 +68,7 @@ export const deleteSpot = (id) => async dispatch => {
     return response;
 }
 export const creasteSpot = (newList) => async dispatch => {
-    const {address, city, state, country, lat, lng, name, description, price, previewImage} = newList
+    const { address, city, state, country, lat, lng, name, description, price, previewImage } = newList
     const response = await csrfFetch(`/api/spots`, {
         method: 'POST',
         body: JSON.stringify({
@@ -84,7 +84,7 @@ export const creasteSpot = (newList) => async dispatch => {
             previewImage,
         })
     });
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         // console.log("data from backend create spot", data)
         dispatch(addOne(data));
@@ -94,7 +94,7 @@ export const creasteSpot = (newList) => async dispatch => {
 }
 
 export const editOneSpot = (spotId, newList) => async dispatch => {
-    const {address, city, state, country, lat, lng, name, description, price, previewImage} = newList
+    const { address, city, state, country, lat, lng, name, description, price, previewImage } = newList
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -110,8 +110,8 @@ export const editOneSpot = (spotId, newList) => async dispatch => {
             previewImage,
         })
     });
-    if(response.ok) {
-        const data = await response.json();        
+    if (response.ok) {
+        const data = await response.json();
         dispatch(addOne(data));
         // console.log('response from backend',response)
         return response;
@@ -124,31 +124,31 @@ export const editOneSpot = (spotId, newList) => async dispatch => {
 
 const spotsReducer = (state = {}, action) => {
     let newState;
-    switch(action.type) {
-        case LOAD: 
-            newState = {...state}
+    switch (action.type) {
+        case LOAD:
+            newState = { ...state }
             action.spots.forEach(spot => {
                 newState[spot.id] = spot
             })
-        return newState;
+            return newState;
 
-        case GET_ONE: 
-            newState = {...state}
+        case GET_ONE:
+            newState = { ...state }
             newState[action.payload.id] = action.payload
-        return newState;
+            return newState;
 
-        case DELETE: 
-            newState = {...state}
+        case DELETE:
+            newState = { ...state }
             delete newState[action.id]
-        return newState;
+            return newState;
 
-        case ADD_ONE: 
-            newState = {...state}
-            newState[action.spot.id] = action.spot            
-        return newState;
-        
+        case ADD_ONE:
+            newState = { ...state }
+            newState[action.spot.id] = action.spot
+            return newState;
+
         default:
-        return state;
+            return state;
     }
 }
 

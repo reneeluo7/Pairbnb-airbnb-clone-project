@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSpot } from '../../store/spots';
+import SpotReviewList from '../SpotReviewList';
 
 const SpotDetail = () => {
     const { id } = useParams();
@@ -24,15 +25,10 @@ const SpotDetail = () => {
                     <div className="spot-detail-title-lower-left">
 
                         <span className="review-detail">
-                            <i className="fa-solid fa-star"></i>
-                            
-                                <span className="review-ave-scor">{spot.avgStarRating ? `(${spot.avgStarRating})` : `New` }</span>
-                                {console.log("rating--------------", spot.avgStarRating)}
-                                {/* <span>{spot.avgStarRating}</span> */}
-                                <span>・</span>                            
-                                                         
-
-                            <span className="review-counts">{`${spot.numReviews} reviews`}</span>
+                            <i className="fa-solid fa-star"></i>                            
+                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating}`) : (`New`) }</span>                            
+                            <span>・</span>
+                            <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </span>
                         <span> ・ </span>
                         <span className="location-detail">{`${spot.city}, ${spot.state}, ${spot.country}`}</span>
@@ -59,14 +55,21 @@ const SpotDetail = () => {
                         Hosted by {spot.Owner.firstName}
                     </div>
                     <div className="spot-detail-info-description">{spot.description}</div>
-                    <div className="spot-detail-info-reviews">
+                    <div className="spot-detail-info-reviews-container">
                         <div className="spot-detail-info-reviews-topbar">
-                            <i className="fa-solid fa-star"></i>
-                            <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
+                            <i className="fa-solid fa-star"></i> 
 
-                            <span className="review-counts">{`${spot.numReviews} reviews`}</span>
+                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating}`) : (`New`) }</span>
+                            <span> ・ </span>      
+                            <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </div>
-                        <div className="spot-detail-info-reviews-list"></div>
+                        <div className="spot-detail-info-reviews-list">
+                            
+                          <SpotReviewList spotId={id} />
+                        </div>
+                        <div className="add-review">
+                            add review btn/ form modal
+                        </div>
                     </div>
                 </div>
 
