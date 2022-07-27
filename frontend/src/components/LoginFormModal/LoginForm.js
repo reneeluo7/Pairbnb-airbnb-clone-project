@@ -15,17 +15,23 @@ function LoginForm() {
     <Redirect to="/" />
   );
 
+  const demoUser = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }))
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
-        // console.log('data-----', data)
+       
         if (data && data.message) setErrors(Object.values(data));
       });
   }
-  // console.log("ERROR", errors)
+ 
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -52,6 +58,7 @@ function LoginForm() {
         />
       </label>
       <button type="submit">Log In</button>
+      <button onClick={demoUser}>Demo User</button>
     </form>
   );
 }

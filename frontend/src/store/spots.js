@@ -114,7 +114,7 @@ export const editSpot = (spotId, newList) => async dispatch => {
         const data = await response.json();
         
         dispatch(addOne(data));
-        console.log('response from backend',response)
+        // console.log('response from backend',response)
         return response;
     }
 }
