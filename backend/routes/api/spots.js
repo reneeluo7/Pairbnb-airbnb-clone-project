@@ -252,10 +252,14 @@ router.get('/:id', validateSpot, async (req, res) => {
         ownerId: spot.ownerId,
         address: spot.address,
         city: spot.city,
+        state: spot.state,
+        country: spot.country,
         lat: spot.lat,
         lng: spot.lng,
+        name: spot.name,        
         description: spot.description,
         price: spot.price,
+        previewImage: spot.previewImage,
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         numReviews: reviews.length,
@@ -379,10 +383,10 @@ router.post('/',
     validateCreateSpot,
 
     async (req, res) => {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const { address, city, state, country, lat, lng, name, description, price, previewImage } = req.body;
 
         const ownerId = req.user.id;
-        const newspot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
+        const newspot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price, previewImage });
 
         res.json(newspot);
     });
