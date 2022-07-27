@@ -6,7 +6,7 @@ import { getOneSpot } from '../../store/spots';
 const SpotDetail = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
-    console.log("Spot return by SpotDrtail", spot)
+    // console.log("Spot return by SpotDrtail", spot)
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -25,11 +25,16 @@ const SpotDetail = () => {
 
                         <span className="review-detail">
                             <i className="fa-solid fa-star"></i>
-                            <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
+                            
+                                <span className="review-ave-scor">{spot.avgStarRating ? `(${spot.avgStarRating})` : `New` }</span>
+                                {console.log("rating--------------", spot.avgStarRating)}
+                                {/* <span>{spot.avgStarRating}</span> */}
+                                <span>・</span>                            
+                                                         
 
                             <span className="review-counts">{`${spot.numReviews} reviews`}</span>
                         </span>
-                        <span> | </span>
+                        <span> ・ </span>
                         <span className="location-detail">{`${spot.city}, ${spot.state}, ${spot.country}`}</span>
                     </div>
                     <div className="spot-detail-title-lower-right"></div>
@@ -41,7 +46,7 @@ const SpotDetail = () => {
                         <img src={spot.previewImage} alt="spot-previewImage" />
                     </div>
                     <div className="spot-detail-imges">
-                        {console.log("spot images", spot.images)}
+                        {/* {console.log("spot images", spot.images)} */}
                         {spot.images && (
                             spot.images.map(img => (
                                 <img key={img.id} src={img} alt="spot-imges" />

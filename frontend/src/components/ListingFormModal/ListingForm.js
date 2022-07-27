@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import  { creasteSpot, editSpot } from '../../store/spots';
-
-
-
+import  { creasteSpot, editOneSpot } from '../../store/spots';
 
 export default function ListingForm({ onClose, spotId, formUsage}) {
     const dispatch = useDispatch();    
@@ -38,7 +35,7 @@ export default function ListingForm({ onClose, spotId, formUsage}) {
             previewImage
         }
         if(spotId) {
-            dispatch(editSpot(spotId, newList))
+            return dispatch(editOneSpot(spotId, newList))
                 .then(() => onClose())
                 .catch(async (res) => {
                 const data = await res.json();                

@@ -93,7 +93,7 @@ export const creasteSpot = (newList) => async dispatch => {
     }
 }
 
-export const editSpot = (spotId, newList) => async dispatch => {
+export const editOneSpot = (spotId, newList) => async dispatch => {
     const {address, city, state, country, lat, lng, name, description, price, previewImage} = newList
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
@@ -111,8 +111,7 @@ export const editSpot = (spotId, newList) => async dispatch => {
         })
     });
     if(response.ok) {
-        const data = await response.json();
-        
+        const data = await response.json();        
         dispatch(addOne(data));
         // console.log('response from backend',response)
         return response;
