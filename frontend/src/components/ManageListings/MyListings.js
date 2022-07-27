@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotsByUser, deleteSpot } from '../../store/spots';
-
+import ListingFormModal from '../ListingFormModal'
 
 
 function MyListings({id}) {
@@ -30,7 +30,7 @@ function MyListings({id}) {
                                 </div>
                                 <div className="spot-manage-btns">
                                     <span className="spot-edit">
-                                        <button>Edit</button>
+                                        <ListingFormModal spotId={spot.id} formUsage='Edit' />
                                     </span>
                                     <span className="spot-delete"
                                         onClick={() => dispatch(deleteSpot(spot.id))}

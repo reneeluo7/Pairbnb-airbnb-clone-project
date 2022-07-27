@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import spotsReducer, { creasteSpot } from '../../store/spots';
+import { useDispatch, useSelector } from 'react-redux';
+import  { creasteSpot, editSpot } from '../../store/spots';
 
 
-export default function ListingForm({ onClose }) {
-    const dispatch = useDispatch();
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState();
-    const [lng, setLng] = useState();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState();
-    const [previewImage, setPreviewImage] = useState('');
+
+
+export default function ListingForm({ onClose, spotId, formUsage}) {
+    const dispatch = useDispatch();    
+    // console.log(typeof(spotId) === 'number')
+    const editSpot = useSelector(state => state.spots[spotId])
+    const [address, setAddress] = useState(editSpot ? editSpot.address : '');
+    const [city, setCity] = useState(editSpot ? editSpot.city :'');
+    const [state, setState] = useState(editSpot ? editSpot.state :'');
+    const [country, setCountry] = useState(editSpot ? editSpot.country :'');
+    const [lat, setLat] = useState(editSpot ? editSpot.lat : '');
+    const [lng, setLng] = useState(editSpot ? editSpot.lng : '');
+    const [name, setName] = useState(editSpot ? editSpot.name :'');
+    const [description, setDescription] = useState(editSpot ? editSpot.description :'');
+    const [price, setPrice] = useState(editSpot ? editSpot.price : '');
+    const [previewImage, setPreviewImage] = useState(editSpot ? editSpot.previewImage :'');
     const [errors, setErrors] = useState([]);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,15 +37,23 @@ export default function ListingForm({ onClose }) {
             price,
             previewImage
         }
-        return dispatch(creasteSpot(newList))
-            .then(()=> onClose())
-            .catch(async (res) => {
-                const data = await res.json();
-                // console.log("Data from backend ",data)
-            if(data && data.errors) setErrors(Object.entries(data.errors))
-        })
-    
-    
+        if(spotId) {
+            dispatch(editSpot(spotId, newList))
+                .then(() => onClose())
+                .catch(async (res) => {
+                const data = await res.json();                
+            if(data && data.errors) setErrors(Object.values(data.errors))
+            })
+        }
+        else {
+          return  dispatch(creasteSpot(newList))
+               .then(() => onClose())
+               .catch(async (res) => {
+                   const data = await res.json();                
+               if(data && data.errors) setErrors(Object.values(data.errors))
+           })
+        }   
+        
 };
 
 
@@ -48,12 +61,12 @@ return (
     <div className="listing-form-container">
 
         <div className='listing-form-title'>
-            <h2>ListingForm</h2>
+            <h2>Listing Form</h2>
         </div>
         <div className="listing-form">
             <form onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map((error, idx) => <li key={idx}>{`${error[0]}: ${error[1]} `}</li>)}
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <label>
                     Address
@@ -140,6 +153,7 @@ return (
                     <input
                         type="number"
                         value={price}
+                        min={0}
                         onChange={(e) => setPrice(e.target.value)}
                         required
                     />
