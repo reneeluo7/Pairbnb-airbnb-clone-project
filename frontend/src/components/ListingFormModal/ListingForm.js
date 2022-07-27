@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { creasteSpot } from '../../store/spots';
+import spotsReducer, { creasteSpot } from '../../store/spots';
 
 
-export default function ListingForm() {
+export default function ListingForm({ onClose }) {
     const dispatch = useDispatch();
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -13,7 +13,7 @@ export default function ListingForm() {
     const [lng, setLng] = useState();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState();
     const [previewImage, setPreviewImage] = useState('');
     const [errors, setErrors] = useState([]);
 
@@ -33,6 +33,7 @@ export default function ListingForm() {
             previewImage
         }
         return dispatch(creasteSpot(newList))
+            .then(()=> onClose())
             .catch(async (res) => {
                 const data = await res.json();
                 // console.log("Data from backend ",data)
@@ -97,6 +98,7 @@ return (
                         value={lat}
                         min={-90}
                         max={90}
+                        step={0.0000001}
                         onChange={(e) => setLat(e.target.value)}
                         required
                     />
@@ -108,6 +110,7 @@ return (
                         value={lng}
                         min={-180}
                         max={180}
+                        step={0.0000001}
                         onChange={(e) => setLng(e.target.value)}
                         required
                     />

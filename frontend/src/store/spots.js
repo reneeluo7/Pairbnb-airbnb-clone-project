@@ -84,7 +84,7 @@ export const creasteSpot = (newList) => async dispatch => {
     });
     if(response.ok) {
         const data = await response.json();
-        console.log("data from backend create spot", data)
+        // console.log("data from backend create spot", data)
         dispatch(addOne(data));
         return response;
     }
@@ -116,7 +116,7 @@ const spotsReducer = (state = {}, action) => {
 
         case ADD_ONE: 
             newState = {...state}
-            newState[action.payload.id] = action.payload
+            newState[action.payload.id] = action.payload            
         return newState;
         
         default:
