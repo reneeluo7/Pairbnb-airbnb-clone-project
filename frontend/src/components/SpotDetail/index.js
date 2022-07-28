@@ -11,6 +11,7 @@ const SpotDetail = () => {
     // console.log("Spot return by SpotDrtail", spot)
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(getOneSpot(id)).then(() => setIsLoaded(true))
@@ -65,8 +66,8 @@ const SpotDetail = () => {
                             <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </div>
                         <div className="spot-detail-info-reviews-list">
-                            
-                          <SpotReviewList spotId={id} />
+                            { user &&
+                             <SpotReviewList spotId={id} />}
                         </div>
                      <div className="add-review">
                           <ReviewFormModal spotId={id} reviewId='' formUsage='Create New Review' />

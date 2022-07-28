@@ -342,7 +342,16 @@ router.post('/:id/reviews',
         const newReview = await Review.create({
             userId, spotId, review, stars
         });
-        res.json(newReview);
+        const createdReview = Review.findByPk(newReview.id, {
+            include: [{
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }, {
+                model: Image,
+                attributes: ['url']
+            }]
+        }) 
+        res.json(createdReview);
     });
 
 

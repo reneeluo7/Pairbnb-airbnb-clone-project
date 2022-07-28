@@ -29,8 +29,8 @@ function ReviewForm({ onClose, reviewId, formUsage, spotId }) {
         else {
             return dispatch(createReview(spotId, newReview))
                 .then(() => onClose())
-                // .then(() => dispatch(getOneSpot(spotId)))
-                // .then(() => dispatch(getSpotsReviews(spotId)))
+                .then(() => dispatch(getOneSpot(spotId)))
+                .then(() => dispatch(getSpotsReviews(spotId)))
                 .catch(async (res) => {
                     const data = await res.json();
                    
