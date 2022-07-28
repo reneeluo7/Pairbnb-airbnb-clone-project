@@ -28,7 +28,7 @@ const SpotDetail = () => {
 
                         <span className="review-detail">
                             <i className="fa-solid fa-star"></i>                            
-                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating}`) : (`New`) }</span>                            
+                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating.toFixed(2)}`) : (`New`) }</span>                            
                             <span>・</span>
                             <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </span>
