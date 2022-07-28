@@ -17,8 +17,8 @@ function MyReviews({ id }) {
         {isloaded && (
             myreviews.map(review => (
                 <div key={review.id} className='review-card'>
-                        <div className="review-image">
-                        {review.Images && review.Images.length > 0 ? review.Images.map((image, index) => (<img key={index} src={image.url} alt='eachImage' />)) : ''}
+                        <div className="review-title"> Review for 
+                        {review.images && review.images.length > 0 ? review.Images.map((image, index) => (<img key={index} src={image.url} alt='eachImage' />)) : ''}
                         </div>
                         <div className="review-info">
                             <div className="review-star">{review.stars}</div>

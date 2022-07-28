@@ -17,8 +17,14 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <>
+        <div className="login btn">
+
         <LoginFormModal />
+        </div>
+        <div className="signup btn">
+
         <SignupFormModal />
+        </div>
       </>
     );
   }
@@ -30,12 +36,12 @@ function Navigation({ isLoaded }) {
         <div className="navbar-left">
           <NavLink exact to="/">
             <img src='https://cdn.usbrandcolors.com/images/logos/airbnb-logo.svg' alt='logo' />
-            <span className='logo-words'>Pairbnb</span>
+            <div className='logo-words'>Pairbnb</div>
           </NavLink>
         </div>
 
         <div className="navbar-right">
-          <NavLink exact to="/">Home</NavLink>
+          {/* <NavLink exact to="/">Home</NavLink> */}
           <span>
             {isLoaded && sessionLinks}
           </span>

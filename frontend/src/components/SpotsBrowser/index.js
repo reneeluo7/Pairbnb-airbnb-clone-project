@@ -25,10 +25,9 @@ const SpotsBrowser = () => {
                                 </div>
                                 <div className="spot-info">
                                     <div className="spot-location">{`${spot.city}, ${spot.state}`}</div>
-                                    {/* <div className="estimated-info">
-                                        <div>166 miles away</div>
-                                        <div>Sep 24-29</div>
-                                    </div> */}
+                                    <div className="spot-avgstar">
+                                         <i className="fa-solid fa-star"></i>
+                                    </div>
                                     <div className="spot-price"><span>${spot.price}</span> night</div>
                                 </div>
                             </div>
