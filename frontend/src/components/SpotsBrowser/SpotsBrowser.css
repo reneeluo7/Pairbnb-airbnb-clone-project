@@ -36,11 +36,16 @@
 }
 
 .spot-card img{
-    object-fit: fill;
+    /* object-fit: fill;
     width: 300px;
     height: 300px;
     padding: 5px;
-    border-radius: 15px;
+    border-radius: 15px; */
+    float: left;
+  width:  325px;
+  height: 325px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .spot-info {

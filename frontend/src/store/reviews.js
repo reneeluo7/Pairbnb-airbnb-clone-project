@@ -39,9 +39,9 @@ export const getUserReviews = (id) => async dispatch => {
     }
 }
 
-export const creasteReview = (newReview) => async dispatch => {
+export const createReview = (spotId, newReview) => async dispatch => {
     const { review, stars } = newReview
-    const response = await csrfFetch(`/api/spots`, {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         body: JSON.stringify({
             review,
@@ -50,9 +50,27 @@ export const creasteReview = (newReview) => async dispatch => {
     });
     if (response.ok) {
         const data = await response.json();
-        // console.log("data from backend create spot", data)
+        
         dispatch(addOne(data));
-        // console.log('response from backend',response)
+        
+        return response;
+    }
+}
+
+export const editOneReview = (reviewId, newReview) => async dispatch => {
+    const { review, stars } = newReview
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            review,
+            stars,
+        })
+    });
+    if (response.ok) {
+        const data = await response.json();
+      
+        dispatch(addOne(data));
+       
         return response;
     }
 }
@@ -75,12 +93,7 @@ const reviewReducer = (state = {}, action) => {
                 newState[review.id] = review
             })
             return newState;
-
-        // case GET_ONE:
-        //     newState = { ...state }
-        //     newState[action.payload.id] = action.payload
-        //     return newState;
-
+        
         case DELETE:
             newState = { ...state }
             delete newState[action.id]

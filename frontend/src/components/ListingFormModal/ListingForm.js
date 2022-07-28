@@ -139,8 +139,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                         Listing Description
                         <input
                             type="text"
-                            value={description}
-                            maxLength={250}
+                            value={description}                            
                             onChange={(e) => setDescription(e.target.value)}
                             required
                         />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserReviews, deleteReview } from '../../store/reviews'
-
+import ReviewFormModal from '../ReviewFormModal';
 
 function MyReviews({ id }) {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function MyReviews({ id }) {
             myreviews.map(review => (
                 <div key={review.id} className='review-card'>
                         <div className="review-image">
-                            <img src={review.Images[0]} alt="reviewImage" />
+                        {review.Images && review.Images.length > 0 ? review.Images.map((image, index) => (<img key={index} src={image.url} alt='eachImage' />)) : ''}
                         </div>
                         <div className="review-info">
                             <div className="review-star">{review.stars}</div>
@@ -26,7 +26,7 @@ function MyReviews({ id }) {
                         </div>
                         <div className="review-manage-btns">
                             <span className="review-edit">
-                                {/* <ListingFormModal spotId={spot.id} formUsage='Edit' /> */}
+                                <ReviewFormModal reviewId={review.id} formUsage='Edit' />
                             </span>
                             <span className="review-delete"
                                 onClick={() => dispatch(deleteReview(review.id))}

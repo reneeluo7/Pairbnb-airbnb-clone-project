@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSpot } from '../../store/spots';
 import SpotReviewList from '../SpotReviewList';
+import ReviewFormModal from '../ReviewFormModal';
 
 const SpotDetail = () => {
     const { id } = useParams();
@@ -44,8 +45,8 @@ const SpotDetail = () => {
                     <div className="spot-detail-imges">
                         {/* {console.log("spot images", spot.images)} */}
                         {spot.images && (
-                            spot.images.map(img => (
-                                <img key={img.id} src={img} alt="spot-imges" />
+                            spot.images.map((img, idx) => (
+                                <img key={idx} src={img} alt="spot-imges" />
                             ))
                         )}
                     </div>
@@ -67,9 +68,9 @@ const SpotDetail = () => {
                             
                           <SpotReviewList spotId={id} />
                         </div>
-                        <div className="add-review">
-                            add review btn/ form modal
-                        </div>
+                     <div className="add-review">
+                          <ReviewFormModal spotId={id} reviewId='' formUsage='Create New Review' />
+                    </div> 
                     </div>
                 </div>
 
