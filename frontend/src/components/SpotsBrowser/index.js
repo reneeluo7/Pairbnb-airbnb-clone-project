@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getSpots } from '../../store/spots';
 import './SpotsBrowser.css';
+import displayAveStar from '../displayAveStar';
 
 const SpotsBrowser = () => {
   
@@ -27,6 +28,9 @@ const SpotsBrowser = () => {
                                     <div className="spot-location">{`${spot.city}, ${spot.state}`}</div>
                                     <div className="spot-avgstar">
                                          <i className="fa-solid fa-star"></i>
+                                         <div className="star-number">
+                                          <displayAveStar spotId={spot.id} />
+                                         </div>
                                     </div>
                                     <div className="spot-price"><span>${spot.price}</span> night</div>
                                 </div>

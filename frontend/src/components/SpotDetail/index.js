@@ -66,11 +66,12 @@ const SpotDetail = () => {
                             <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </div>
                         <div className="spot-detail-info-reviews-list">
-                            { user &&
-                             <SpotReviewList spotId={id} />}
+                            
+                             <SpotReviewList spotId={id} />
                         </div>
                      <div className="add-review">
-                          <ReviewFormModal spotId={id} reviewId='' formUsage='Create New Review' />
+                          { user &&                             
+                            <ReviewFormModal spotId={id} reviewId='' formUsage='Create New Review' />}
                     </div> 
                     </div>
                 </div>
