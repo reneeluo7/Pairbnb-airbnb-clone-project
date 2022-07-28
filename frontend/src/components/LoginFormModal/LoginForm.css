@@ -1,0 +1,9 @@
+button {
+    border: 2px rgb(204, 47, 136) dotted;
+    border: none;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    
+  }
+

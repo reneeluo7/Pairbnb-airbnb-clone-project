@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSpot } from '../../store/spots';
+import SpotReviewList from '../SpotReviewList';
+import ReviewFormModal from '../ReviewFormModal';
 
 const SpotDetail = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
-    console.log("Spot return by SpotDrtail", spot)
+    // console.log("Spot return by SpotDrtail", spot)
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -24,12 +26,12 @@ const SpotDetail = () => {
                     <div className="spot-detail-title-lower-left">
 
                         <span className="review-detail">
-                            <i className="fa-solid fa-star"></i>
-                            <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
-
-                            <span className="review-counts">{`${spot.numReviews} reviews`}</span>
+                            <i className="fa-solid fa-star"></i>                            
+                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating}`) : (`New`) }</span>                            
+                            <span>・</span>
+                            <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </span>
-                        <span> | </span>
+                        <span> ・ </span>
                         <span className="location-detail">{`${spot.city}, ${spot.state}, ${spot.country}`}</span>
                     </div>
                     <div className="spot-detail-title-lower-right"></div>
@@ -41,10 +43,10 @@ const SpotDetail = () => {
                         <img src={spot.previewImage} alt="spot-previewImage" />
                     </div>
                     <div className="spot-detail-imges">
-                        {console.log("spot images", spot.images)}
+                        {/* {console.log("spot images", spot.images)} */}
                         {spot.images && (
-                            spot.images.map(img => (
-                                <img key={img.id} src={img} alt="spot-imges" />
+                            spot.images.map((img, idx) => (
+                                <img key={idx} src={img} alt="spot-imges" />
                             ))
                         )}
                     </div>
@@ -54,14 +56,21 @@ const SpotDetail = () => {
                         Hosted by {spot.Owner.firstName}
                     </div>
                     <div className="spot-detail-info-description">{spot.description}</div>
-                    <div className="spot-detail-info-reviews">
+                    <div className="spot-detail-info-reviews-container">
                         <div className="spot-detail-info-reviews-topbar">
-                            <i className="fa-solid fa-star"></i>
-                            <span className="review-ave-scor">{`${spot.avgStarRating} `}</span>
+                            <i className="fa-solid fa-star"></i> 
 
-                            <span className="review-counts">{`${spot.numReviews} reviews`}</span>
+                            <span className="review-ave-scor">{spot.avgStarRating ? (`${spot.avgStarRating}`) : (`New`) }</span>
+                            <span> ・ </span>      
+                            <span className="review-counts">{spot.numReviews}</span> <span>{(spot.numReviews > 1) ? `reviews` : `review`}</span>
                         </div>
-                        <div className="spot-detail-info-reviews-list"></div>
+                        <div className="spot-detail-info-reviews-list">
+                            
+                          <SpotReviewList spotId={id} />
+                        </div>
+                     <div className="add-review">
+                          <ReviewFormModal spotId={id} reviewId='' formUsage='Create New Review' />
+                    </div> 
                     </div>
                 </div>
 

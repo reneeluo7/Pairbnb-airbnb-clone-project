@@ -6,9 +6,9 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-   
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -17,23 +17,38 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <>
+        <div className="login btn">
+
         <LoginFormModal />
+        </div>
+        <div className="signup btn">
+
         <SignupFormModal />
+        </div>
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
-        
-        <NavLink exact to="/">Home</NavLink>
-        <span>
+    <nav>
+      <div className="navbar-container">
 
-        {isLoaded && sessionLinks}
-        </span>
-      </li>
-    </ul>
+        <div className="navbar-left">
+          <NavLink exact to="/">
+            <img src='https://cdn.usbrandcolors.com/images/logos/airbnb-logo.svg' alt='logo' />
+            <div className='logo-words'>Pairbnb</div>
+          </NavLink>
+        </div>
+
+        <div className="navbar-right">
+          {/* <NavLink exact to="/">Home</NavLink> */}
+          <span>
+            {isLoaded && sessionLinks}
+          </span>
+        </div>
+      </div>
+    </nav>
+    
   );
 }
 

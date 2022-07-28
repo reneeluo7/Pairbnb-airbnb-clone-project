@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation";
 import SpotsBrowser from "./components/SpotsBrowser";
 import SpotDetail from "./components/SpotDetail";
 import ManageListings from "./components/ManageListings";
-
+import ManageReviews from "./components/ManageReviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +29,9 @@ function App() {
           </Route>
           <Route path='/users/:id/spots'>
           <ManageListings />
+        </Route>
+          <Route path='/users/:id/reviews'>
+          <ManageReviews />
         </Route>
          
         </Switch>

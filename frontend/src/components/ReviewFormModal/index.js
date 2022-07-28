@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import ListingForm from './ListingForm';
+import ReviewForm from './ReviewForm';
 
-function ListingFormModal({ spotId, formUsage }) {
+function ReviewFormModal({ reviewId, formUsage, spotId }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -10,11 +10,11 @@ function ListingFormModal({ spotId, formUsage }) {
             <button onClick={() => setShowModal(true)}>{formUsage}</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <ListingForm onClose={() => setShowModal(false)} spotId={spotId} formUsage={formUsage} />
+                    <ReviewForm onClose={() => setShowModal(false)} reviewId={reviewId} formUsage={formUsage} spotId={spotId}/>
                 </Modal>
             )}
         </>
     );
 }
 
-export default ListingFormModal;
+export default ReviewFormModal;
