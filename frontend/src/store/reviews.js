@@ -101,7 +101,7 @@ const reviewReducer = (state = {}, action) => {
 
         case ADD_ONE:
             newState = { ...state }
-            newState[action.review.id] = action.review
+            newState[action.review.id] = {...newState[action.review.id],...action.review}
             return newState;
 
         default:
