@@ -284,7 +284,7 @@ router.get('/:id', validateSpot, async (req, res) => {
         numReviews,
         avgStarRating: parseFloat(stars[0].dataValues.avgStarRating),
         images,
-        Owners: owner
+        Owner: owner
     };
     res.json(spotdetail);
 

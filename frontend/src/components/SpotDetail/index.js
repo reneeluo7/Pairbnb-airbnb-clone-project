@@ -54,7 +54,7 @@ const SpotDetail = () => {
                     {/* {console.log("spot images", spot.images)} */}
                     {spot.images && (
                         spot.images.map((img, idx) => (
-                            <img key={idx} src={img} alt="spot-imges" />
+                            <img key={idx} src={img.url} alt="spot-imges" />
                         ))
                     )}
                 </div>
