@@ -69,9 +69,20 @@ img {
 .spot-detail-info-whole-box {
     display: flex;
     flex-direction: column;
-    /* border-bottom: 1px rgba(203, 202, 202, 0.496) solid;
-    border-top: 1px rgba(203, 202, 202, 0.496) solid; */
+    
 }
+
+.spot-detail-info-whole-box > * {
+    border-bottom: 1px rgba(203, 202, 202, 0.496) solid;
+    /* border-top: 1px rgba(203, 202, 202, 0.496) solid; */
+    padding: 10px;
+}
+
+.spot-detail-info-host {
+    font-weight: bold;
+    font-size: 25px;
+}
+
 
 
 

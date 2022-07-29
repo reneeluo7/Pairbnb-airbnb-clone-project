@@ -26,7 +26,7 @@ function SpotReviewList({ spotId }) {
             spotReviews?.map(review => (
                 <div key={review.id} className='review-info-container'>
                     <div className="review-info-title-container">
-                        {/* <div className="review-info-title-reviewername">{review.User.firstName}</div> */}
+                        <div className="review-info-title-reviewername">{review.User.firstName}</div>
                         <div className="review-info-title-createtime">
                              {dateToString(review.updatedAt)}
                         
