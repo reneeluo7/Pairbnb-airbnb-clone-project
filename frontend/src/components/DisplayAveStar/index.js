@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { getOneSpot } from '../../store/spots'
+import { getSpotsReviews } from '../../store/reviews'
 
 function DisplayAveStar({spotId}) {
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.spots[spotId]);    
-    
+    const reviews = useSelector(state => Object.values(state.reviews));
+    const spotReviews = reviews.filter(review => review.spotId === Number(spotId));
+    const avgStarRating = spotReviews.map(el => el.stars).reduce((a, b) => a + b, 0) / spotReviews.length;
+
     useEffect(() => {
-        dispatch(getOneSpot(spotId))
-    }, [dispatch, spotId])
+        dispatch(getSpotsReviews(spotId))
+    }, [dispatch, spotId]);
+
   return (
-     <div key={spotId}>{spot.avgStarRating ? (`${spot.avgStarRating.toFixed(2)}`) : (`New`) }</div>
+     <span key={spotId}>{avgStarRating ? (`${avgStarRating.toFixed(2)}`) : (`New`) }</span>
   )
 }
 
