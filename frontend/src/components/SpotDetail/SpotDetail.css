@@ -156,6 +156,8 @@ img {
     font-family: 'Poppins', sans-serif
 }
 
-
+.add-review button:hover {
+    background-color: rgba(246, 246, 246, 0.677);
+}
 
 

@@ -12,6 +12,9 @@ function DisplayAveStar({ spotId }) {
   // const spot = useSelector(state => state.spots[spotId]);
   // const [isLoaded, setIsLoaded] = useState(false);
   console.log("reviews======", reviews)
+  console.log("avestars======", avgStarRating)
+  
+
 
   useEffect(() => {
     dispatch(getSpotsReviews(spotId))

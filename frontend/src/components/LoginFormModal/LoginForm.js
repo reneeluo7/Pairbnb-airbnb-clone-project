@@ -34,26 +34,30 @@ function LoginForm() {
  
   return (
     <form onSubmit={handleSubmit}>
-      <ul>
+      <ul id='error-message'>
         {/* {errors.map((error, idx) => { */}
          { errors.length > 0 &&<li >{errors[0]}</li>
         }
       </ul>
-      <label>
+      <label id='lable-email'>
         Email
-        <input
+        <div></div>
+        <input id='input-text'
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
+          placeholder='Email'
           required
         />
       </label>
-      <label>
+      <label id='lable-email'>
         Password
-        <input
+        <div></div>
+        <input id='input-password'
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder='Password'
           required
         />
       </label>
