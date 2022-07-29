@@ -8,9 +8,22 @@ a {
     border: none
 } */
 
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     color: #222222;
     margin: 0;
+    
+}
+
+
+#root{
+    display: flex;
+    flex-direction: column;
 }
 
