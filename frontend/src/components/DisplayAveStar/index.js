@@ -9,10 +9,6 @@ function DisplayAveStar({ spotId }) {
   const reviews = useSelector(state => Object.values(state.reviews));
   const spotReviews = reviews.filter(review => review.spotId === Number(spotId));
   const avgStarRating = spotReviews.map(el => Number(el.stars)).reduce((a, b) => a + b, 0) / spotReviews.length;
-  // const spot = useSelector(state => state.spots[spotId]);
-  // const [isLoaded, setIsLoaded] = useState(false);
-  console.log("reviews======", reviews)
-  console.log("avestars======", avgStarRating)
   
 
 
