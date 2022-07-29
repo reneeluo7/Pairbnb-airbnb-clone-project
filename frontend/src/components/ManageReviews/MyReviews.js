@@ -17,7 +17,7 @@ function MyReviews({ id }) {
 
     useEffect(() => {
         dispatch(getUserReviews(id)).then(() => setIsloaded(true))
-    }, [dispatch, id])
+    }, [dispatch, id, myreviews.length])
   return (
     <div className='reviews-cards-container'>
         {isloaded && (
