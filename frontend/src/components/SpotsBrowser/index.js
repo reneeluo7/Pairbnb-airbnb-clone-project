@@ -15,7 +15,7 @@ const SpotsBrowser = () => {
         dispatch(getSpots())
     },[dispatch])
     return (
-        <main>
+      
             <div className='spots-cards-session'>
                 {spots && (
                     spots.map(spot => (
@@ -43,7 +43,7 @@ const SpotsBrowser = () => {
                 }
                 
             </div>
-        </main>
+       
     )
 }
 
