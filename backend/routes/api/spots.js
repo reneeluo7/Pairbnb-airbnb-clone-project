@@ -239,14 +239,33 @@ router.get('/:id', validateSpot, async (req, res) => {
 
     const spot = await Spot.findByPk(req.params.id);
 
-    const reviews = await spot.getReviews();
-    const avgStarRating = reviews.map(el => el.stars).reduce((a, b) => a + b, 0) / reviews.length;
+    // const reviews = await spot.getReviews();
+    // // console.log(reviews[0].stars)
+    // const avgStarRating = reviews.map(el => el.stars).reduce((a, b) => a + b, 0) / reviews.length;
 
-    const Owner = await spot.getOwner();
+    // const Owner = await spot.getOwner();
 
-    const allimages = await spot.getImages();
-    const images = allimages.map(el => el.url);
+    // const allimages = await spot.getImages();
+    // const images = allimages.map(el => el.url);
+    const stars = await Review.findAll({
+        where: { spotId: req.params.id },
+        attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'avgStarRating']]
+    });
+    
+    const numReviews = await Review.count({
+        where:{ spotId: req.params.id }        
+    })
 
+    const images = await Image.findAll({
+        where:{ spotId: req.params.id },
+        attributes: ['url']  
+    })
+
+    const owner = await User.findByPk(spot.ownerId, {
+        attributes: ['id', 'firstName', 'lastName'] 
+    })       
+    
+    
     const spotdetail = {
         id: spot.id,
         ownerId: spot.ownerId,
@@ -262,10 +281,10 @@ router.get('/:id', validateSpot, async (req, res) => {
         previewImage: spot.previewImage,
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
-        numReviews: reviews.length,
-        avgStarRating,
+        numReviews,
+        avgStarRating: parseFloat(stars[0].dataValues.avgStarRating),
         images,
-        Owner
+        Owners: owner
     };
     res.json(spotdetail);
 
@@ -342,16 +361,16 @@ router.post('/:id/reviews',
         const newReview = await Review.create({
             userId, spotId, review, stars
         });
-        // const createdReview = Review.findByPk(newReview.id, {
-        //     include: [{
-        //         model: User,
-        //         attributes: ['id', 'firstName', 'lastName']
-        //     }, {
-        //         model: Image,
-        //         attributes: ['url']
-        //     }]
-        // }) 
-        res.json(newReview);
+        const createdReview = Review.findByPk(newReview.id, {
+            include: [{
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }, {
+                model: Image,
+                attributes: ['url']
+            }]
+        }) 
+        res.json(createdReview);
     });
 
 
