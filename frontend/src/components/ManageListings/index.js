@@ -2,12 +2,13 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import MyListings from './MyListings'
 import ListingFormModal from '../ListingFormModal'
+import './ManageListings.css'
 
 function ManageListings() {
     const {id} = useParams()
   return (
-    <div>
-        <div className="listing-page-container">
+    <div className="listing-page-container">
+        {/* <div className="listing-page-container"> */}
         <h1>Manage My Listings</h1>
         <div className="create-new-listing-btn">
          <ListingFormModal spotId='' formUsage='Create New Listing'/>
@@ -19,7 +20,7 @@ function ManageListings() {
 
 
 
-        </div>
+        {/* </div> */}
     </div>
   )
 }

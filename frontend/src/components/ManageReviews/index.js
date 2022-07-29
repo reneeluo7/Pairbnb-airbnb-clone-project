@@ -1,13 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import MyReviews from './MyReviews'
+import './ManageReviews.css'
 // import ListingFormModal from '../ListingFormModal'
 
 function ManageReviews() {
     const {id} = useParams()
   return (
-    <div>
-        <div className="review-page-container">
+    <div className="review-page-container">
+        {/* <div className="review-page-container"> */}
         <h1>Manage My Reviews</h1>
         {/* <div className="create-new-listing-btn">
          <ListingFormModal spotId='' formUsage='Create New Listing'/>
@@ -19,7 +20,7 @@ function ManageReviews() {
 
 
 
-        </div>
+        {/* </div> */}
     </div>
   )
 }

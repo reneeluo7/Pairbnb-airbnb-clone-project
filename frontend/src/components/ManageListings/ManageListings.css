@@ -1,0 +1,8 @@
+.listing-page-container {
+    position: relative;
+    display: flex;
+      flex-direction: column;
+      top: 80px;
+      width: 85%;
+      margin: auto;
+}

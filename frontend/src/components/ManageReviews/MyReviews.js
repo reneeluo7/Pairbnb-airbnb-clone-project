@@ -9,6 +9,12 @@ function MyReviews({ id }) {
     const reviews = useSelector(state => Object.values(state.reviews));
     const myreviews = reviews.filter(review => review.userId === Number(id));
 
+    const dateToString = (data) => {
+        const date = new Date(data);
+        const dateParams = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, dateParams);
+      };
+
     useEffect(() => {
         dispatch(getUserReviews(id)).then(() => setIsloaded(true))
     }, [dispatch, id])
@@ -17,11 +23,16 @@ function MyReviews({ id }) {
         {isloaded && (
             myreviews.map(review => (
                 <div key={review.id} className='review-card'>
-                        <div className="review-title"> Review for 
-                        {review.images && review.images.length > 0 ? review.Images.map((image, index) => (<img key={index} src={image.url} alt='eachImage' />)) : ''}
+                        <div className="review-title"> Review for {review.Spot.name}
+                        {/* {review.images && review.images.length > 0 ? review.Images.map((image, index) => (<img key={index} src={image.url} alt='eachImage' />)) : ''} */}
                         </div>
                         <div className="review-info">
-                            <div className="review-star">{review.stars}</div>
+                            <div className="review-time-info">
+                                <span>Most Recent Update At: {dateToString(review.updatedAt)}</span>
+                            </div>
+                            <div className="review-star">
+                                <span><i className="fa-solid fa-star"></i></span>
+                                Stars: {review.stars}</div>
                             <div className="review-content">{review.review}</div>                            
                         </div>
                         <div className="review-manage-btns">
