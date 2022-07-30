@@ -105,11 +105,10 @@ img {
     margin: 10px 0px;
 }
 .review-info-wrap {
-    /* background-color: aqua; */
+    
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    /* justify-content: space-evenly; */
+    flex-wrap: wrap;    
     width: 100%;
     margin-bottom: 20px;
     height: fit-content;
@@ -117,7 +116,6 @@ img {
 }
 
 .review-info-wrap > * {
-    /* background-color: aqua; */
     display: flex;
     flex-direction: column;
     width: 50%;

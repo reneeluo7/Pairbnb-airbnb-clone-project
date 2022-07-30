@@ -139,7 +139,9 @@ const spotsReducer = (state = {}, action) => {
 
         case DELETE:
             newState = { ...state }
+            console.log('spot-reducer-----', newState)
             delete newState[action.id]
+            console.log('after delete---------', newState)
             return newState;
 
         case ADD_ONE:

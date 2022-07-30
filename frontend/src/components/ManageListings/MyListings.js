@@ -13,7 +13,7 @@ function MyListings({ id }) {
 
     // const handleDelete = (id) => {
     //     dispatch(deleteSpot(id))
-    //     
+    //     dispatch()
     // }
 
     useEffect(() => {
