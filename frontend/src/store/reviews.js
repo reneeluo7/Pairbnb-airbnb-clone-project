@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD = 'reviews/LOAD';
 const DELETE = 'reviews/DELETE';
 const ADD_ONE = 'reviews/ADD_ONE';
+const DELETE_BY_SPOT_ID = 'reviews/DELETE_BY_SPOT_ID';
 
 const load = (reviews) => ({
     type: LOAD,
@@ -19,6 +20,10 @@ const addOne = (review) => ({
     review
 })
 
+export const deleteReviewbySpotId = (spotId) => ({
+    type: DELETE_BY_SPOT_ID,
+    spotId
+})
 
 export const getSpotsReviews = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}/reviews`);
@@ -84,6 +89,8 @@ export const deleteReview = (id) => async dispatch => {
     return response;
 }
 
+
+
 const reviewReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
@@ -103,6 +110,18 @@ const reviewReducer = (state = {}, action) => {
         case ADD_ONE:
             newState = { ...state }
             newState[action.review.id] = {...newState[action.review.id],...action.review}
+            return newState;
+
+        case DELETE_BY_SPOT_ID:
+            newState = {}
+            let stateArr = Object.values(state);
+            // console.log("newSTATE---", newState);
+            // console.log("ACTION SPOTID---", action.spotId);
+            let filteredState = stateArr.filter(review => review.spotId !== action.spotId)
+            // console.log("filteredState", filteredState);
+            filteredState.forEach(review => {
+                newState[review.id] = review
+            })
             return newState;
 
         default:

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSpotsByUser, deleteSpot } from '../../store/spots';
 import ListingFormModal from '../ListingFormModal';
 import { Link } from 'react-router-dom';
+import { deleteReviewbySpotId } from '../../store/reviews';
 
 
 function MyListings({ id }) {
@@ -11,10 +12,10 @@ function MyListings({ id }) {
     const spots = useSelector(state => Object.values(state.spots));
     const myspots = spots.filter(spot => spot.ownerId === Number(id));
 
-    // const handleDelete = (id) => {
-    //     dispatch(deleteSpot(id))
-    //     dispatch()
-    // }
+    const handleDelete = (id) => {
+        dispatch(deleteSpot(id))
+        dispatch(deleteReviewbySpotId(id))
+    }
 
     useEffect(() => {
         dispatch(getSpotsByUser(id)).then(() => setIsloaded(true))
@@ -40,7 +41,8 @@ function MyListings({ id }) {
                                 <ListingFormModal spotId={spot.id} formUsage='Edit' />
                             </span>
                             <span className="myspot-delete"
-                                onClick={() => dispatch(deleteSpot(spot.id))}
+                                // onClick={() => dispatch(deleteSpot(spot.id))}
+                                onClick={() => handleDelete(spot.id)}
                             >
                                 <button>Delete</button>
                             </span>
