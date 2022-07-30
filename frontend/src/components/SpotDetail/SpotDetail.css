@@ -32,6 +32,7 @@
     width: 100%;
     height: 400px;
     border-radius: 15px;
+    margin-bottom: 25px;
 }
 
 .spot-detail-previewImg {
@@ -61,7 +62,7 @@ img {
 .spot-detail-imges img {
     max-height: 50%;
     max-width: 50%;
-    object-fit: cover;
+    object-fit: fill;
     box-sizing: border-box;
     /* margin: 5px; */
 }
@@ -81,11 +82,12 @@ img {
 .spot-detail-info-host {
     font-weight: bold;
     font-size: 25px;
+    padding-bottom: 20px;
 }
 
 .spot-detail-info-description {
     margin: 10px 0px;
-   
+    padding-bottom: 20px;
 }
 
 .spot-detail-info-reviews-topbar{
@@ -109,7 +111,8 @@ img {
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
     width: 100%;
-    height: 260px;
+    margin-bottom: 20px;
+    height: fit-content;
     /* box-sizing: border-box; */
 }
 

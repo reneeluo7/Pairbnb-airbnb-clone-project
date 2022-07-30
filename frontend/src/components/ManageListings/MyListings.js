@@ -13,7 +13,7 @@ function MyListings({ id }) {
 
     // const handleDelete = (id) => {
     //     dispatch(deleteSpot(id))
-    //     dispatch()
+    //     
     // }
 
     useEffect(() => {
@@ -25,9 +25,9 @@ function MyListings({ id }) {
                 myspots.map(spot => (
                     <div key={spot.id} className='myspot-lists'>
                         <div className="myspot-image">
-                        {/* <Link key={spot.id} to={`/spots/${spot.id}`}> */}
+                        <Link key={spot.id} to={`/spots/${spot.id}`}>
                             <img src={spot.previewImage} alt="previewImage" />
-                            {/* </Link> */}
+                            </Link>
                         </div>
                         <div className="smypot-info">
                             <div className="myspot-name">{spot.name}</div>
