@@ -7,9 +7,13 @@ import{ getSpotsReviews } from '../../store/reviews';
 function DisplayAveStar({ spotId }) {
   const dispatch = useDispatch();
   const reviews = useSelector(state => Object.values(state.reviews));
+  console.log("reviews and id", reviews)
+  console.log("id", spotId, typeof(spotId))
+
   const spotReviews = reviews.filter(review => review.spotId === Number(spotId));
   const avgStarRating = spotReviews.map(el => Number(el.stars)).reduce((a, b) => a + b, 0) / spotReviews.length;
   
+  console.log(avgStarRating, typeof(avgStarRating))
 
 
   useEffect(() => {
@@ -18,8 +22,12 @@ function DisplayAveStar({ spotId }) {
 
   return (
     <>
-      
-        <span key={spotId}>{avgStarRating ? (`${avgStarRating.toFixed(2)}`) : (`New`)}</span>
+      {
+        reviews && (
+
+          <span key={spotId}>{avgStarRating ? (`${avgStarRating.toFixed(2)}`) : (`New`)}</span>
+        )
+      }
       
     </>
   )

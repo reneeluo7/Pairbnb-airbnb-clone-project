@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotsByUser, deleteSpot } from '../../store/spots';
 import ListingFormModal from '../ListingFormModal';
+import { Link } from 'react-router-dom';
 
 
 function MyListings({ id }) {
@@ -10,6 +11,11 @@ function MyListings({ id }) {
     const spots = useSelector(state => Object.values(state.spots));
     const myspots = spots.filter(spot => spot.ownerId === Number(id));
 
+    // const handleDelete = (id) => {
+    //     dispatch(deleteSpot(id))
+    //     dispatch()
+    // }
+
     useEffect(() => {
         dispatch(getSpotsByUser(id)).then(() => setIsloaded(true))
     }, [dispatch, id])
@@ -17,22 +23,23 @@ function MyListings({ id }) {
         <div className='listings-cards-container'>
             {isloaded && (
                 myspots.map(spot => (
-                    // <Link key={spot.id} to={`/spots/${spot.id}`}>
-                    <div key={spot.id} className='spot-card'>
-                        <div className="spot-image">
+                    <div key={spot.id} className='myspot-lists'>
+                        <div className="myspot-image">
+                        {/* <Link key={spot.id} to={`/spots/${spot.id}`}> */}
                             <img src={spot.previewImage} alt="previewImage" />
+                            {/* </Link> */}
                         </div>
-                        <div className="spot-info">
-                            <div className="spot-name">{spot.name}</div>
-                            <div className="spot-location">{`${spot.city}, ${spot.state}`}</div>
-                            <div className="spot-descptrition">{spot.description}</div>
-                            <div className="spot-price"><span>${spot.price}</span> night</div>
+                        <div className="smypot-info">
+                            <div className="myspot-name">{spot.name}</div>
+                            <div className="myspot-location">{`${spot.address} ${spot.city}, ${spot.state} ・ ${spot.country}`}</div>
+                            <div className="myspot-descptrition">{spot.description}</div>
+                            <div className="myspot-price"><span>${spot.price}</span> night</div>
                         </div>
-                        <div className="spot-manage-btns">
-                            <span className="spot-edit">
+                        <div className="myspot-manage-btns">
+                            <span className="myspot-edit">
                                 <ListingFormModal spotId={spot.id} formUsage='Edit' />
                             </span>
-                            <span className="spot-delete"
+                            <span className="myspot-delete"
                                 onClick={() => dispatch(deleteSpot(spot.id))}
                             >
                                 <button>Delete</button>
@@ -40,7 +47,6 @@ function MyListings({ id }) {
                         </div>
                     </div>
 
-                    // </Link>
                 ))
             )}
         </div>

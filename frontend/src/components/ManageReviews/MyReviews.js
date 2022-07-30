@@ -7,6 +7,7 @@ function MyReviews({ id }) {
     const dispatch = useDispatch();
     const [isloaded, setIsloaded] = useState(false);
     const reviews = useSelector(state => Object.values(state.reviews));
+    // const spots = useSelector(state => Object.values(state.spots))
     const myreviews = reviews.filter(review => review.userId === Number(id));
 
     const dateToString = (data) => {
@@ -17,10 +18,10 @@ function MyReviews({ id }) {
 
     useEffect(() => {
         dispatch(getUserReviews(id)).then(() => setIsloaded(true))
-    }, [dispatch, id, myreviews.length])
+    }, [dispatch, id ])
   return (
     <div className='reviews-cards-container'>
-        {isloaded && (
+        {isloaded &&  (
             myreviews.map(review => (
                 <div key={review.id} className='review-card'>
                         <div className="review-title"> Review for {review.Spot.name}

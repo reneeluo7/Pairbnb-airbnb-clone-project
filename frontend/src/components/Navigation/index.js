@@ -35,7 +35,7 @@ function Navigation({ isLoaded }) {
 
         <div className="navbar-left">
           <NavLink exact to="/">
-            <img src='https://cdn.usbrandcolors.com/images/logos/airbnb-logo.svg' alt='logo' />
+            <img src='https://a0.muscache.com/pictures/52c8d856-33d0-445a-a040-a162374de100.jpg' alt='logo' id='logo'/>
             <div className='logo-words'>Pairbnb</div>
           </NavLink>
         </div>

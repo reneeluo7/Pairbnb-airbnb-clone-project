@@ -19,7 +19,7 @@ nav {
     background-color: white;    
     margin: auto;
     height: 100%;
-    width: 85%;
+    width: 80%;
     
   }
   
@@ -86,7 +86,7 @@ nav {
   }
 
   .btn {
-    border: 2px rgb(204, 47, 136) dotted;
+    /* border: 2px rgb(204, 47, 136) dotted; */
     border: none;
     background-color: white;
   }
@@ -109,5 +109,9 @@ nav {
 
   .fas.fa-user-circle {
     color: gray;
+  }
+
+  #logo {
+    filter: opacity(0.4) drop-shadow(0 0 0 #ff5a5f) saturate(78);
   }
   
