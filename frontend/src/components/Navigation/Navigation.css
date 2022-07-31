@@ -85,12 +85,21 @@ nav {
     justify-content: space-evenly;
   }
 
-  .login.btn,
-  .signup.btn {
+  .login > button,
+  .signup >button {
     /* border: 2px rgb(204, 47, 136) dotted; */
     border: none;
     background-color: white;
   }
+
+  .login > button:hover,
+  .signup >button:hover {
+    /* border: 2px rgb(204, 47, 136) dotted; */
+    color: #ff5a5f;
+    text-decoration: underline;
+  }
+
+
 
   .profile-dropdown {
     height: 250px;

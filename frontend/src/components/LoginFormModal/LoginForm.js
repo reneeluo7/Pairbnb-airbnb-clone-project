@@ -33,7 +33,8 @@ function LoginForm() {
   }
  
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='Login'>
+      <div className="formtitle">Log In</div>
       <ul id='error-message'>
         {/* {errors.map((error, idx) => { */}
          { errors.length > 0 &&<li >{errors[0]}</li>
@@ -46,7 +47,7 @@ function LoginForm() {
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
-          placeholder='Email'
+          // placeholder='Email'
           required
         />
       </label>
@@ -57,7 +58,7 @@ function LoginForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='Password'
+          // placeholder='Password'
           required
         />
       </label>

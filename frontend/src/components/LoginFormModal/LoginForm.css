@@ -13,8 +13,8 @@ button {
   flex-wrap: wrap;
   justify-self: flex-start;
   align-items: center;
-  width: 350px;
-  height: 400px;
+  width: 450px;
+  height: 500px;
   border-radius: 15px;
   padding: 20px;
   overflow:scroll;
