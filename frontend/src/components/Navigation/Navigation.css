@@ -85,7 +85,8 @@ nav {
     justify-content: space-evenly;
   }
 
-  .btn {
+  .login.btn,
+  .signup.btn {
     /* border: 2px rgb(204, 47, 136) dotted; */
     border: none;
     background-color: white;

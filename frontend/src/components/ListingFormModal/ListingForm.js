@@ -70,6 +70,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                         <input
                             type="text"
                             value={address}
+                            maxLength={50}
                             onChange={(e) => setAddress(e.target.value)}
                             required
                         />
@@ -79,6 +80,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                         <input
                             type="text"
                             value={city}
+                            maxLength={30}
                             onChange={(e) => setCity(e.target.value)}
                             required
                         />
@@ -88,6 +90,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                         <input
                             type="text"
                             value={state}
+                            maxLength={30}
                             onChange={(e) => setState(e.target.value)}
                             required
                         />
@@ -97,6 +100,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                         <input
                             type="text"
                             value={country}
+                            maxLength={30}
                             onChange={(e) => setCountry(e.target.value)}
                             required
                         />

@@ -30,13 +30,12 @@ function MyListings({ id }) {
                             <img src={spot.previewImage} alt="previewImage" />
                             </Link>
                         </div>
-                        <div className="smypot-info">
+                        <div className="myspot-info">
                             <div className="myspot-name">{spot.name}</div>
-                            <div className="myspot-location">{`${spot.address} ${spot.city}, ${spot.state} ・ ${spot.country}`}</div>
+                            <div className="myspot-location">{`${spot.address}, ${spot.city}, ${spot.state} ・ ${spot.country}`}</div>
                             <div className="myspot-descptrition">{spot.description}</div>
-                            <div className="myspot-price"><span>${spot.price}</span> night</div>
-                        </div>
-                        <div className="myspot-manage-btns">
+                            <div className="myspot-price"><span>${spot.price} /</span>  night</div>
+                             <div className="myspot-manage-btns">
                             <span className="myspot-edit">
                                 <ListingFormModal spotId={spot.id} formUsage='Edit' />
                             </span>
@@ -46,6 +45,7 @@ function MyListings({ id }) {
                             >
                                 <button>Delete</button>
                             </span>
+                            </div>
                         </div>
                     </div>
 
