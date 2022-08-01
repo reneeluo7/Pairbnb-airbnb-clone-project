@@ -24,3 +24,4 @@ SimplyBnb is a web application inspited by Airbnb that provides an online market
 ## Home Page Demo User:
 
 You will be able to test the features without sign up by click on the "Demo User" button.
+![image](https://user-images.githubusercontent.com/103155560/182110909-0db17216-313c-4565-95bd-2a6d6e9a3018.png)
