@@ -9,12 +9,12 @@ function ManageReviews() {
   return (
     <div className="review-page-container">
         {/* <div className="review-page-container"> */}
-        <h1>Manage My Reviews</h1>
+        {/* <h1>Manage My Reviews</h1> */}
         {/* <div className="create-new-listing-btn">
          <ListingFormModal spotId='' formUsage='Create New Listing'/>
         </div> */}
         <div className="my-reviews">
-            <h2>My Reviews</h2>
+            <div className="my-reviews-title">My Reviews</div>
            <MyReviews id={id} />
         </div>
 

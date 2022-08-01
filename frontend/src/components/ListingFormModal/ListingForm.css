@@ -22,7 +22,7 @@
 
   /* / Handle / */
   .listing-form-container::-webkit-scrollbar-thumb {
-    background: #ff385da8; 
+    background: #FF385C; 
     border-radius: 10px;
     min-height: 10px;
   }

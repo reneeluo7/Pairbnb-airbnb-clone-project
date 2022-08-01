@@ -70,7 +70,7 @@ button {
   margin-top: 15px;
 }
 
-.Login ul > li {
+.Login ul  {
   /* background-color: antiquewhite; */
   display: flex;
   flex-direction: column;
@@ -80,3 +80,6 @@ button {
   margin: 10px 0px;
 
 }
+/* .Login ul > li {
+  width: 300px;
+} */

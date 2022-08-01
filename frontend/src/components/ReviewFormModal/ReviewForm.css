@@ -1,0 +1,16 @@
+.review-content-input-create textarea{
+    /* background-color: aquamarine; */
+    /* height: 40px; */
+    font-size:13px;
+    resize: none;
+    width: 100%;    
+    border: none;
+    margin-bottom: 10px;
+}
+
+.review-form > form > label > input:focus,
+.review-form > form > label > textarea:focus
+{
+    outline: none;
+   
+  }

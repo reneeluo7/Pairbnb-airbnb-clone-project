@@ -121,6 +121,7 @@ img {
     width: 50%;
     max-height: 100%;
     padding-right: 15%;
+    overflow-wrap: break-word;
 }
 
 .review-info-container > * {

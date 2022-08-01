@@ -99,6 +99,20 @@ nav {
     text-decoration: underline;
   }
 
+  #Profile-btn {
+    background-color: white;
+    width: 80px;
+    border-radius: 999px;
+    height: 40px;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;    
+    border: 1px solid lightgray;
+  }
+
+  #Profile-btn:hover {
+    box-shadow: 0px 2px 3px rgba(162, 162, 162, 0.481);
+  }
 
 
   .profile-dropdown {

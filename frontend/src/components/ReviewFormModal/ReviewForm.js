@@ -41,17 +41,17 @@ function ReviewForm({ onClose, reviewId, formUsage, spotId }) {
 
     return (
         <div className='Review-form-container'>
-            <div className='review-form-title'>
-                <h2>Review Form</h2>
+            <div className='formtitle'>
+                Review Form
             </div>
             <div className="review-form">
                 <form onSubmit={handleSubmit}>
                 <ul>
                 { errors.length > 0 &&<li >{errors}</li>}
                     </ul>
-                    <label>
+                    <label className='review-content-input-create'>
                         Review
-                        <input
+                        <textarea
                             type="text"
                             value={review}                            
                             onChange={(e) => setReview(e.target.value)}
@@ -70,7 +70,7 @@ function ReviewForm({ onClose, reviewId, formUsage, spotId }) {
                             required
                         />
                     </label>
-                    <button type="submit">Submit</button>
+                    <button type="submit" id="submit-btn">Submit</button>
                 </form>
             </div>
         </div>

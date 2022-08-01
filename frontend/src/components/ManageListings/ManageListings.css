@@ -31,7 +31,7 @@
 
 }
 
-.create-new-listing-btn>button {
+.create-new-listing-btn > button {
     background-color: #FF385C;
     align-items: center;
     color: white;
@@ -78,7 +78,7 @@
     padding: 20px;
 }
 
-.myspot-info>* {
+.myspot-info > * {
     margin-top: 5px;
     margin-bottom: 15px;
 }
@@ -92,7 +92,7 @@
 
 .myspot-descptrition {
     max-height: 90px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -109,7 +109,7 @@
     width: 100%;
 }
 
-.myspot-manage-btns >* {
+.myspot-manage-btns > * {
     width: 80px;
 
 }
