@@ -57,8 +57,8 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
     return (
         <div className="listing-form-container">
 
-            <div className='listing-form-title'>
-                <h2>Listing Form</h2>
+            <div className='formtitle'>
+                Listing Form
             </div>
             <div className="listing-form">
                 <form onSubmit={handleSubmit}>
@@ -139,9 +139,9 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                             required
                         />
                     </label>
-                    <label>
+                    <label id='listing-description'>
                         Listing Description
-                        <input
+                        <input 
                             type="text"
                             value={description}                            
                             onChange={(e) => setDescription(e.target.value)}
@@ -167,7 +167,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
                             required
                         />
                     </label>
-                    <button type="submit">Submit</button>
+                    <button type="submit" id='submit-btn'>Submit</button>
                 </form>
             </div>
         </div>

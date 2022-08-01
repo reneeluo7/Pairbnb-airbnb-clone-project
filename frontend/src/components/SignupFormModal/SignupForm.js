@@ -31,7 +31,8 @@ function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="SignUp-form">
+      <div className="formtitle">Sign Up</div>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -80,7 +81,7 @@ function SignupForm() {
           required
         />
       </label>
-      <button type="submit">Sign Up</button>
+      <button type="submit" id='submit-btn'>Sign Up</button>
     </form>
   );
 }

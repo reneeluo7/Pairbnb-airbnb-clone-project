@@ -1,0 +1,49 @@
+.listing-form-container {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 15px;
+}
+
+.listing-form-container::-webkit-scrollbar {
+    /* display: none; */
+    width: 10px;
+   
+}
+
+.listing-form-container::-webkit-scrollbar-button {
+    height: 10px;
+  }
+
+.listing-form-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px rgba(214, 214, 214, 0.603); 
+    border-radius: 10px;
+  }
+
+  /* / Handle / */
+  .listing-form-container::-webkit-scrollbar-thumb {
+    background: #ff385da8; 
+    border-radius: 10px;
+    min-height: 10px;
+  }
+  
+  /* / * Handle on hover */  
+   /* .listing-form-container::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }   */
+
+.listing-form-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.listing-form > form > label > input:focus {
+    outline: none;
+   
+  }
+
+  .listing-form ul > li {
+    width: 300px;
+    color: #FF385C;
+    margin: 10px 0px;
+  }
