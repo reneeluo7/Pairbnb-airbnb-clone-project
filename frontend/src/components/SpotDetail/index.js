@@ -9,7 +9,7 @@ import './SpotDetail.css';
 const SpotDetail = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
-    // console.log("Spot return by SpotDrtail", spot)
+    
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const user = useSelector(state => state.session.user)
@@ -51,7 +51,7 @@ const SpotDetail = () => {
                     <img src={spot.previewImage} alt="spot-previewImage" />
                 </div>
                 <div className="spot-detail-imges">
-                    {/* {console.log("spot images", spot.images)} */}
+                   
                     {spot.images && (
                         spot.images.map((img, idx) => (
                             <img key={idx} src={img.url} alt="spot-imges" />

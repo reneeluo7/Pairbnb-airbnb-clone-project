@@ -1,6 +1,5 @@
 .spots-cards-session {
     position: relative;
-    /* border: 2px rgb(204, 47, 136) dotted; */
     top: 80px;
     display: flex;
     flex-direction: row;
@@ -14,7 +13,6 @@
 
 .spots-cards-session a {
     position: relative;
-    /* border: 2px rgb(47, 22, 151) dotted; */
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -26,7 +24,6 @@
 
 .spot-image > img {    
     display: flex;
-    /* background-color: brown; */
     float: left;
     width: 275px;
     height: 275px;
@@ -36,7 +33,7 @@
 }
 
 .spot-info {
-    /* background-color: aqua; */
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

@@ -240,11 +240,8 @@ router.get('/:id', validateSpot, async (req, res) => {
     const spot = await Spot.findByPk(req.params.id);
 
     // const reviews = await spot.getReviews();
-    // // console.log(reviews[0].stars)
     // const avgStarRating = reviews.map(el => el.stars).reduce((a, b) => a + b, 0) / reviews.length;
-
     // const Owner = await spot.getOwner();
-
     // const allimages = await spot.getImages();
     // const images = allimages.map(el => el.url);
     const stars = await Review.findAll({

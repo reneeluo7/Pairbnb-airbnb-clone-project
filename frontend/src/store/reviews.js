@@ -29,7 +29,7 @@ export const getSpotsReviews = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}/reviews`);
     if (response.ok) {
         const data = await response.json();
-        // console.log('fetch from backend getReviewsbySpot data----', data)
+       
         dispatch(load(data.Reviews));
         return response;
     }
@@ -38,7 +38,7 @@ export const getUserReviews = (id) => async dispatch => {
     const response = await csrfFetch(`/api/users/${id}/reviews`);
     if (response.ok) {
         const data = await response.json();
-        // console.log('fetch from backend getReviewsbySpot data----', data)
+ 
         dispatch(load(data.Reviews));
         return response;
     }
@@ -115,10 +115,9 @@ const reviewReducer = (state = {}, action) => {
         case DELETE_BY_SPOT_ID:
             newState = {}
             let stateArr = Object.values(state);
-            // console.log("newSTATE---", newState);
-            // console.log("ACTION SPOTID---", action.spotId);
+            
             let filteredState = stateArr.filter(review => review.spotId !== action.spotId)
-            // console.log("filteredState", filteredState);
+           
             filteredState.forEach(review => {
                 newState[review.id] = review
             })

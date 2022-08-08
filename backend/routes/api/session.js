@@ -7,10 +7,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// router.use((req, res, next) => {
-//   console.log('something in session')
-//   next()
-// })
 
 //make a middleware called validateLogin
 const validateLogin = [

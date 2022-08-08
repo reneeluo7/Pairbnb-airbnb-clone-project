@@ -34,7 +34,7 @@ export const getSpots = () => async dispatch => {
     const response = await fetch(`/api/spots`);
     if (response.ok) {
         const data = await response.json();
-        // console.log('fetch from backend data----', data)
+        
         dispatch(load(data.Spots));
         return response;
     }
@@ -44,7 +44,7 @@ export const getOneSpot = (id) => async dispatch => {
     const response = await fetch(`/api/spots/${id}`);
     if (response.ok) {
         const data = await response.json();
-        // console.log('fetch from backend get1spot data----', data)
+        
         dispatch(loadOne(data));
         return response;
     }
@@ -54,7 +54,7 @@ export const getSpotsByUser = (id) => async dispatch => {
     const response = await csrfFetch(`/api/users/${id}/spots`);
     if (response.ok) {
         const data = await response.json();
-        // console.log('fetch from backend getSpotsbyUser data----', data)
+    
         dispatch(load(data.spots));
         return response;
     }
@@ -86,9 +86,9 @@ export const creasteSpot = (newList) => async dispatch => {
     });
     if (response.ok) {
         const data = await response.json();
-        // console.log("data from backend create spot", data)
+        
         dispatch(addOne(data));
-        // console.log('response from backend',response)
+        
         return response;
     }
 }
@@ -113,7 +113,7 @@ export const editOneSpot = (spotId, newList) => async dispatch => {
     if (response.ok) {
         const data = await response.json();
         dispatch(addOne(data));
-        // console.log('response from backend',response)
+        
         return response;
     }
 }
@@ -139,9 +139,9 @@ const spotsReducer = (state = {}, action) => {
 
         case DELETE:
             newState = { ...state }
-            console.log('spot-reducer-----', newState)
+           
             delete newState[action.id]
-            console.log('after delete---------', newState)
+         
             return newState;
 
         case ADD_ONE:

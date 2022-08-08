@@ -60,7 +60,7 @@ export const signup = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  // console.log('DATA-------', data)
+
   dispatch(setUser(data));
   return response;
 };

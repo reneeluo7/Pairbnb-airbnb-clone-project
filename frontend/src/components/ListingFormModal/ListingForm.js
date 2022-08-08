@@ -5,7 +5,7 @@ import { creasteSpot, editOneSpot } from '../../store/spots';
 
 export default function ListingForm({ onClose, spotId, formUsage }) {
     const dispatch = useDispatch();
-    // console.log(typeof(spotId) === 'number')
+   
     const editSpot = useSelector(state => state.spots[spotId])
     const [address, setAddress] = useState(editSpot ? editSpot.address : '');
     const [city, setCity] = useState(editSpot ? editSpot.city : '');

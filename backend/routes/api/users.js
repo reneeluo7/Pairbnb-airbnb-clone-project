@@ -8,11 +8,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// router.use((req, res, next) => {
-//   console.log('something userRouter')
-//   next()
-// })
-
 /* Middlewares */
 
 const validateSignup = [
