@@ -1,5 +1,5 @@
 # About Pairbnb-airbnb-clone-project
-SimplyBnb is a web application inspited by Airbnb that provides an online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities.
+Pairbnb is a web application inspited by Airbnb that provides an online marketplace for lodging, primarily homestays for vacation rentals, and tourism activities. Users can see all the reviews on the listings and can manages their own listings and reviews.
 [Click here to view Pairbnb Live Site](https://pairbnb-airbnb-cloning.herokuapp.com/)
 
 ## Please see below links to project Wiki:
