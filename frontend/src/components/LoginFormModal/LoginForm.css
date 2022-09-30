@@ -1,11 +1,10 @@
 button {
-    /* border: 2px rgb(204, 47, 136) dotted; */
-    border: none;
-    background-color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    
-  }
+  /* border: 2px rgb(204, 47, 136) dotted; */
+  border: none;
+  background-color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+}
 
 #modal-content {
   display: flex;
@@ -30,16 +29,14 @@ button {
   justify-content: space-evenly;
   margin: 10px 0px;
   /* font-weight: bold; */
-  
 }
 
-.formtitle{
+.formtitle {
   /* background-color: aquamarine; */
-  height:40px;
+  height: 40px;
   width: 100%;
   border-bottom: 1px rgba(203, 202, 202, 0.496) solid;
   font-weight: bold;
-  
 }
 
 #modal-content form label {
@@ -55,31 +52,28 @@ button {
   border: none;
   width: 100%;
   height: 25px;
-  
-  
 }
-
 
 #submit-btn {
   width: 100%;
   height: 35px;
-  background-color: #FF385C;
+  background-color: #ff385c;
   border-radius: 10px;
   color: white;
   font-weight: bold;
   margin-top: 15px;
 }
 
-.Login ul  {
+.Login ul {
   /* background-color: antiquewhite; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 300px;  
-  color: #FF385C;
+  width: 300px;
+  color: #ff385c;
   margin: 10px 0px;
-
 }
 /* .Login ul > li {
   width: 300px;
 } */
+

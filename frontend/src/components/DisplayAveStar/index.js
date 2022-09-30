@@ -1,33 +1,33 @@
-import { useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
-import{ getSpotsReviews } from '../../store/reviews';
+import { getSpotsReviews } from "../../store/reviews";
 
 function DisplayAveStar({ spotId }) {
   const dispatch = useDispatch();
-  const reviews = useSelector(state => Object.values(state.reviews));
- 
+  const reviews = useSelector((state) => Object.values(state.reviews));
 
-  const spotReviews = reviews.filter(review => review.spotId === Number(spotId));
-  const avgStarRating = spotReviews.map(el => Number(el.stars)).reduce((a, b) => a + b, 0) / spotReviews.length;
+  const spotReviews = reviews.filter(
+    (review) => review.spotId === Number(spotId)
+  );
+  const avgStarRating =
+    spotReviews.map((el) => Number(el.stars)).reduce((a, b) => a + b, 0) /
+    spotReviews.length;
 
-  
   useEffect(() => {
-    dispatch(getSpotsReviews(spotId))
+    dispatch(getSpotsReviews(spotId));
   }, [dispatch, spotId]);
 
   return (
     <>
-      {
-        reviews && (
-
-          <span key={spotId}>{avgStarRating ? (`${avgStarRating.toFixed(2)}`) : (`New`)}</span>
-        )
-      }
-      
+      {reviews && (
+        <span key={spotId}>
+          {avgStarRating ? `${avgStarRating.toFixed(2)}` : `New`}
+        </span>
+      )}
     </>
-  )
+  );
 }
 
 export default DisplayAveStar;

@@ -1,62 +1,55 @@
 .spots-cards-session {
-    position: relative;
-    top: 80px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 80%;
-    padding-top: 15px;
-    margin: auto;
-    font-family: 'Poppins', sans-serif;
+  position: relative;
+  top: 80px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 80%;
+  padding-top: 15px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
 }
 
 .spots-cards-session a {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    width: 275px;
-    /* padding: 5px; */
-    margin-right: 29px;
-
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 275px;
+  /* padding: 5px; */
+  margin-right: 29px;
 }
 
-.spot-image > img {    
-    display: flex;
-    float: left;
-    width: 275px;
-    height: 275px;
-    object-fit: cover;
-    border-radius: 15px;
-    
+.spot-image > img {
+  display: flex;
+  float: left;
+  width: 275px;
+  height: 275px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .spot-info {
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    font-family: 'Open Sans', sans-serif;
-    padding: 10px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: "Open Sans", sans-serif;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .spot-info-topline {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 5px;
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 .spot-location {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .spot-price > span {
-    font-weight: 600;
+  font-weight: 600;
 }
-
-
-
