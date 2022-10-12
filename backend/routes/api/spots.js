@@ -461,10 +461,11 @@ router.post(
 router.post(
   "/",
   requireAuth,
-  singleMulterUpload("image"),
+  singleMulterUpload("previewImage"),
   validateCreateSpot,
 
   async (req, res) => {
+    console.log("req.file", req.file )
     const {
       address,
       city,

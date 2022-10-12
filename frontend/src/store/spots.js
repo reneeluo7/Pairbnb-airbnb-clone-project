@@ -64,6 +64,7 @@ export const deleteSpot = (id) => async (dispatch) => {
   return response;
 };
 export const creasteSpot = (newList) => async (dispatch) => {
+  console.log("newList in thunk", newList)
   const {
     address,
     city,
@@ -76,20 +77,36 @@ export const creasteSpot = (newList) => async (dispatch) => {
     price,
     previewImage,
   } = newList;
+  const formData = new FormData();
+  formData.append("address", address);
+  formData.append("city", city);
+  formData.append("state", state);
+  formData.append("country", country);
+  formData.append("lat", lat);
+  formData.append("lng", lng);
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("price", price);
+  formData.append("previewImage", previewImage);
   const response = await csrfFetch(`/api/spots`, {
     method: "POST",
-    body: JSON.stringify({
-      address,
-      city,
-      state,
-      country,
-      lat,
-      lng,
-      name,
-      description,
-      price,
-      previewImage,
-    }),
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+    // body: JSON.stringify({
+    //   address,
+    //   city,
+    //   state,
+    //   country,
+    //   lat,
+    //   lng,
+    //   name,
+    //   description,
+    //   price,
+    //   previewImage,
+    // }),
+
   });
   if (response.ok) {
     const data = await response.json();
