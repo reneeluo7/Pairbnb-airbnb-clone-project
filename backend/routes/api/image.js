@@ -31,6 +31,11 @@ const authorizedDelete = async (req, _res, next) => {
     }
 };
 
+
+
+// GET all Image by spotID
+
+
 /* DELETE method route */
 // Delete an Image
 router.delete('/:id',

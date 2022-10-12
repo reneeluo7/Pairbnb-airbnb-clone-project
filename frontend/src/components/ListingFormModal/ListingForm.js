@@ -53,6 +53,10 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
         });
     }
   };
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setPreviewImage(file);
+  };
 
   return (
     <div className="listing-form-container">
@@ -160,9 +164,9 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
           <label>
             Preview Image
             <input
-              type="url"
-              value={previewImage}
-              onChange={(e) => setPreviewImage(e.target.value)}
+              type="file"
+              // value={previewImage}
+              onChange={updateFile}
               required
             />
           </label>

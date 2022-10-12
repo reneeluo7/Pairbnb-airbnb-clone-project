@@ -12,6 +12,7 @@ const {
   Booking,
 } = require("../../db/models");
 const { Op, where } = require("sequelize");
+const {singlePublicFileUpload, multiplePublicFileUpload, singleMulterUpload } = require('../../awsS3')
 
 /* Middlewares */
 // to check if a spot is valid
@@ -221,6 +222,27 @@ router.get("/:id/reviews", validateSpot, async (req, res) => {
   });
   res.json({ Reviews: reviews });
 });
+
+// GET all Images by Spot's ID
+router.get("/:id/images", validateSpot, async (req, res) => {
+  const images = await Image.findAll({
+    where: {
+      spotId: req.params.id,
+    },
+    // include: [
+    //   {
+    //     model: User,
+    //     attributes: ["id", "firstName", "lastName"],
+    //   },
+    //   {
+    //     model: Image,
+    //     attributes: ["url"],
+    //   },
+    // ],
+  });
+  res.json({ Images: images });
+});
+
 
 // Get all Bookings for a Spot based on the Spot's id
 router.get("/:id/bookings", validateSpot, async (req, res) => {
@@ -439,6 +461,7 @@ router.post(
 router.post(
   "/",
   requireAuth,
+  singleMulterUpload("image"),
   validateCreateSpot,
 
   async (req, res) => {
@@ -452,9 +475,9 @@ router.post(
       name,
       description,
       price,
-      previewImage,
+      // previewImage,
     } = req.body;
-
+    const previewImage = await singlePublicFileUpload(req.file);
     const ownerId = req.user.id;
     const newspot = await Spot.create({
       ownerId,
