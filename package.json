@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/reneeluo7/airbnb-backend-project#readme",
   "dependencies": {
-    "pg": "^8.7.3"
+    "aws-sdk": "^2.1232.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.7.3",
+    "uuid": "^9.0.0"
   }
 }
