@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpotsByUser, deleteSpot } from '../../store/spots';
 import ListingFormModal from '../ListingFormModal';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { deleteReviewbySpotId } from '../../store/reviews';
 
 
 function MyListings({ id }) {
     const dispatch = useDispatch();
+    const history = useHistory()
     const [isloaded, setIsloaded] = useState(false)
     const spots = useSelector(state => Object.values(state.spots));
     const myspots = spots.filter(spot => spot.ownerId === Number(id));
@@ -44,6 +45,9 @@ function MyListings({ id }) {
                                 onClick={() => handleDelete(spot.id)}
                             >
                                 <button>Delete</button>
+                            </span>
+                            <span className="myspot-manage-images" onClick={() => history.push(`/spots/${spot.id}/images/edit`)}>
+                                <button>Upload/Delete Photos</button>
                             </span>
                             </div>
                         </div>

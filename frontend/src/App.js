@@ -9,6 +9,7 @@ import SpotDetail from "./components/SpotDetail";
 import ManageListings from "./components/ManageListings";
 import ManageReviews from "./components/ManageReviews";
 import ListingImages from "./components/ListingImages";
+import EditImages from "./components/EditImages";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path='/' exact>
             <SpotsBrowser />
+          </Route>
+          <Route path='/spots/:id/images/edit'>
+            <EditImages />
           </Route>
           <Route path='/spots/:id/images'>
             <ListingImages />

@@ -6,6 +6,9 @@
     flex-direction: column;
     margin: auto;
 }
+.all-image-page-container img{
+    width: 100%;
+}
 .topbar-back-arrow{
     position: relative;
     height: 2.5rem;

@@ -20,6 +20,10 @@ export const getOneSpotImages = (id) => async (dispatch) => {
       }
 }
 
+export const getImagesToEdit = (id) => async(dispatch) => {
+    
+}
+
 const imageReducer = (state = {}, action) => {
     let newState;
     switch(action.type) {

@@ -10,7 +10,7 @@ export default function ListingImages() {
     const history = useHistory()
     const [isloaded, setIsloaded] = useState(false);
     const images = useSelector(state => Object.values(state.images))
-    console.log("images in components", images)
+    // console.log("images in components", images)
 
     useEffect(() => {
         dispatch(getOneSpotImages(id)).then(() => setIsloaded(true))
