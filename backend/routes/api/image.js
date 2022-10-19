@@ -4,7 +4,7 @@ const { requireAuth } = require('../../utils/auth');
 const { User, Spot, Review, Image, Booking } = require('../../db/models');
 
 /* Middlewares */
-// to check is the review valide
+// to check is the review valid
 const validateImage = async (req, _res, next) => {
     const image = await Image.findByPk(req.params.id);
     if (!image) {
@@ -31,9 +31,41 @@ const authorizedDelete = async (req, _res, next) => {
     }
 };
 
+// to check if a spot is valid
+const validateSpot = async (req, _res, next) => {
+    console.log('333333', req.params.id)
+    const spot = await Spot.findByPk(req.params.id);
+  
+    if (!spot) {
+      const err = new Error("Spot couldn't be found");
+      err.status = 404;
+      next(err);
+    }
+    next();
+  };
+
 
 
 // GET all Image by spotID
+router.get('/spot/:id', validateSpot, async(req, res) => {
+    const images = await  Image.findAll({
+        where: { spotId: req.params.id}, 
+        attributes:['url']
+    })
+    const previmg = await Spot.findByPk(req.params.id,{
+        attributes:['previewImage']
+    })
+    const prevurl = previmg["previewImage"]
+    images.unshift({'url': prevurl})
+
+    const allImages = {
+        // previmg,
+        images
+        
+    }
+    res.json(allImages)
+})
+
 
 
 /* DELETE method route */

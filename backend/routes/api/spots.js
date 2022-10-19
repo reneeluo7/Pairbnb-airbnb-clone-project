@@ -465,7 +465,7 @@ router.post(
   validateCreateSpot,
 
   async (req, res) => {
-    console.log("req.file", req.file )
+    // console.log("req.file", req.file )
     const {
       address,
       city,

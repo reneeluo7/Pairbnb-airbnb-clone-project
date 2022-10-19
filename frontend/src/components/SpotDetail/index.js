@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { getOneSpot } from '../../store/spots';
 import SpotReviewList from '../SpotReviewList';
 import ReviewFormModal from '../ReviewFormModal';
@@ -9,10 +9,15 @@ import './SpotDetail.css';
 const SpotDetail = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
-    
+    const history = useHistory()
     const dispatch = useDispatch();
+    
     const [isLoaded, setIsLoaded] = useState(false);
     const user = useSelector(state => state.session.user)
+
+    const seeImages = () => {
+        history.push(`/spots/${id}/images`)
+    }
 
     useEffect(() => {
         dispatch(getOneSpot(id)).then(() => setIsLoaded(true))
@@ -47,16 +52,21 @@ const SpotDetail = () => {
             </div>
           
             <div className="spot-detail-photos-box">
-                <div className="spot-detail-previewImg">
-                    <img src={spot.previewImage} alt="spot-previewImage" />
+                <div className="spot-detail-previewImg" >
+                    {/* <Link to={`/spots/${id}/images`}> */}
+                        
+                    <img onClick= {seeImages} src={spot.previewImage} alt="spot-previewImage" />
+                    {/* </Link> */}
                 </div>
                 <div className="spot-detail-imges">
-                   
+                {/* <Link to={`/spots/${id}/images`}> */}
+                        
                     {spot.images && (
                         spot.images.map((img, idx) => (
-                            <img key={idx} src={img.url} alt="spot-imges" />
+                            <img onClick= {seeImages} key={idx} src={img.url} alt="spot-imges" />
                         ))
                     )}
+                        {/* </Link> */}
                 </div>
             </div>
             <div className="spot-detail-info-whole-box">
