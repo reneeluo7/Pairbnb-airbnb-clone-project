@@ -64,7 +64,7 @@ export const deleteSpot = (id) => async (dispatch) => {
   return response;
 };
 export const creasteSpot = (newList) => async (dispatch) => {
-  console.log("newList in thunk", newList)
+  
   const {
     address,
     city,

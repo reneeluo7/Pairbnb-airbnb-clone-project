@@ -33,7 +33,7 @@ const authorizedDelete = async (req, _res, next) => {
 
 // to check if a spot is valid
 const validateSpot = async (req, _res, next) => {
-    console.log('333333', req.params.id)
+ 
     const spot = await Spot.findByPk(req.params.id);
   
     if (!spot) {
@@ -46,7 +46,23 @@ const validateSpot = async (req, _res, next) => {
 
 
 
-// GET all Image by spotID
+// GET all Image to edit by spotID
+router.get('/spot/:id/edit', validateSpot, async(req, res) => {
+    const images = await  Image.findAll({
+        where: { spotId: req.params.id}, 
+        attributes:['id', 'spotId','url']
+        
+    })
+    const allImages = {
+        
+        images
+        
+    }
+    res.json(allImages)
+})
+
+// GET all Image with prevImage by spotID
+
 router.get('/spot/:id', validateSpot, async(req, res) => {
     const images = await  Image.findAll({
         where: { spotId: req.params.id}, 

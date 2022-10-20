@@ -56,7 +56,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) setPreviewImage(file);
-    console.log('previewImg after upload', file)
+    // console.log('previewImg after upload', file)
     
   };
 

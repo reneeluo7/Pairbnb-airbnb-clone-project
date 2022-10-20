@@ -47,7 +47,7 @@ function MyListings({ id }) {
                                 <button>Delete</button>
                             </span>
                             <span className="myspot-manage-images" onClick={() => history.push(`/spots/${spot.id}/images/edit`)}>
-                                <button>Upload/Delete Photos</button>
+                                <button>Upload/Delete Images</button>
                             </span>
                             </div>
                         </div>

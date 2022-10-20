@@ -439,9 +439,12 @@ router.post(
   requireAuth,
   validateSpot,
   verifySpotOwner,
+  singleMulterUpload("url"),
   async (req, res) => {
-    const { url } = req.body;
-
+    // const { url } = req.body;
+    console.log("req.file", req.file )
+    const url = await singlePublicFileUpload(req.file)
+    console.log("req.file after aws", url)
     const spotId = req.params.id;
     const imageableType = "Spot";
     const spotimage = await Image.create({
@@ -451,7 +454,7 @@ router.post(
     });
     res.json(
       await Image.findByPk(spotimage.id, {
-        attributes: ["id", ["spotId", "imageableId"], "imageableType", "url"],
+        attributes: ["id", "spotId", "url"],
       })
     );
   }
@@ -465,7 +468,7 @@ router.post(
   validateCreateSpot,
 
   async (req, res) => {
-    // console.log("req.file", req.file )
+    
     const {
       address,
       city,

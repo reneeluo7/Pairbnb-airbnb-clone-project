@@ -4,29 +4,30 @@ import { getOneSpotImages } from '../../store/images';
 import { useHistory, useParams } from 'react-router-dom';
 import './ListingImages.css'
 
-export default function ListingImages() {
+export default function ListingImages({imageArr}) {
     const {id} = useParams()
+    // const {imageArr} = imageArr
     const dispatch = useDispatch()
     const history = useHistory()
     const [isloaded, setIsloaded] = useState(false);
-    const images = useSelector(state => Object.values(state.images))
+    // const images = useSelector(state => Object.values(state.images))
     // console.log("images in components", images)
 
-    useEffect(() => {
-        dispatch(getOneSpotImages(id)).then(() => setIsloaded(true))
-    }, [dispatch, id ])
+    // useEffect(() => {
+    //     dispatch(getOneSpotImages(id)).then(() => setIsloaded(true))
+    // }, [dispatch, id ])
 
     return (
         isloaded && 
         <div className="all-image-page-container">
             <div className="topbar-back-arrow">
-                <div className="back-arrow" onClick={() => history.push(`/spots/${id}`)}>
+                <div className="back-arrow" onClick={() => history.goBack()}>
                 <i className="fa-solid fa-chevron-left"></i>
                 </div>
             </div>
             <div className="all-images">
-                {images && (
-                    images.map((image, idx) => (
+                {imageArr && (
+                    imageArr.map((image, idx) => (
                         <div className="each-image" key={idx}>
 
                             <img src={image.url}  />

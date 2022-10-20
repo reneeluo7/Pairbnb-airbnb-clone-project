@@ -5,10 +5,16 @@ import { getOneSpot } from '../../store/spots';
 import SpotReviewList from '../SpotReviewList';
 import ReviewFormModal from '../ReviewFormModal';
 import './SpotDetail.css';
+import ListingImages from '../ListingImages';
+
 
 const SpotDetail = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
+    console.log("11", spot?.images)
+    const imageArr = spot.images.slice()
+    imageArr.unshift(spot.previewImage)
+    
     const history = useHistory()
     const dispatch = useDispatch();
     
@@ -16,7 +22,8 @@ const SpotDetail = () => {
     const user = useSelector(state => state.session.user)
 
     const seeImages = () => {
-        history.push(`/spots/${id}/images`)
+        // history.push(`/spots/${id}/images`)
+        <ListingImages imageArr={imageArr} />
     }
 
     useEffect(() => {
