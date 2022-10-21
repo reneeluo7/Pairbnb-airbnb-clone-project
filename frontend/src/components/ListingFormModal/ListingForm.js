@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { creasteSpot, editOneSpot } from "../../store/spots";
 
 export default function ListingForm({ onClose, spotId, formUsage }) {
   const dispatch = useDispatch();
-
+  const history = useHistory()
+  const user = useSelector(state => state.session.user)
   const editSpot = useSelector((state) => state.spots[spotId]);
   const [address, setAddress] = useState(editSpot ? editSpot.address : "");
   const [city, setCity] = useState(editSpot ? editSpot.city : "");
@@ -40,6 +42,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
     if (spotId) {
       return dispatch(editOneSpot(spotId, newList))
         .then(() => onClose())
+        // .then(() => history.push(`/users/${user.id}/spots`))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(Object.values(data.errors));
@@ -47,6 +50,7 @@ export default function ListingForm({ onClose, spotId, formUsage }) {
     } else {
       return dispatch(creasteSpot(newList))
         .then(() => onClose())
+        // .then(() => history.push(`/users/${user.id}/spots`))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(Object.values(data.errors));

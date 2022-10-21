@@ -36,28 +36,17 @@ function EditImages(){
                                 onClick={(e) => {
                                     dispatch(removeImage(image.id))
                                 }}
-                                // onClick={setShowBox(true)}
+                               
                             >
-                                <i className="fa-sharp fa-solid fa-trash"></i>
-                                {/* <i className="fa-regular fa-circle-xmark"></i> */}
+                                {/* <i className="fa-sharp fa-solid fa-trash"></i> */}
+                                <i className="fa-regular fa-circle-xmark"></i>
+                                {/* x */}
                             </button>
-                            {/* {
-                                showBox && (
-                                    <div className="confirm-delete">
-                                        <div className='confirm-delete-word'>Are you sure to delete this image?</div>
-                                        <div className="confirm-delete-btns">
-                                            <button className='confirm-delete'>Delete</button>
-                                            <button className="not-to-delete">Cancel</button>
-                                        </div>
-                                    </div>
-                                )
-                            } */}
+                      
                         </div>
                     ))
                 }
-                {/* <div className="each-image-card">
-                <i className="fa-solid fa-upload"></i>
-                </div> */}
+                
                 <UploadImageModal spotId={id}/>
             </div>
 

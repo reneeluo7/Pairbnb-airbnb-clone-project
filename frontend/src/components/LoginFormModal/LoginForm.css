@@ -54,7 +54,8 @@ button {
   height: 25px;
 }
 
-#submit-btn {
+#submit-btn,
+#submit-btn-demo {
   width: 100%;
   height: 35px;
   background-color: #ff385c;

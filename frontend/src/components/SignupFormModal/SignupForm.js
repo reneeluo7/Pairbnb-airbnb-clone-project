@@ -30,6 +30,12 @@ function SignupForm() {
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
+  const demoLogIn = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }))
+  }
+
   return (
     <form onSubmit={handleSubmit} className="SignUp-form">
       <div className="formtitle">Sign Up</div>
@@ -82,6 +88,7 @@ function SignupForm() {
         />
       </label>
       <button type="submit" id='submit-btn'>Sign Up</button>
+      <div className="try-demo" onClick={demoLogIn}>Try Demo Log In ?</div>
     </form>
   );
 }

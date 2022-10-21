@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import ListingFormModal from '../ListingFormModal';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -19,7 +20,7 @@ function Navigation({ isLoaded }) {
       <>
         <div className="login btn">
 
-        <LoginFormModal />
+        <LoginFormModal formUsage=''/>
         </div>
         <div className="signup btn">
 
@@ -27,6 +28,12 @@ function Navigation({ isLoaded }) {
         </div>
       </>
     );
+  }
+
+  const handleClick = () =>{
+     if (sessionUser) {
+      return <ListingFormModal spotId='' formUsage="Become a host" />
+     }
   }
 
   return (
@@ -42,6 +49,13 @@ function Navigation({ isLoaded }) {
 
         <div className="navbar-right">
           {/* <NavLink exact to="/">Home</NavLink> */}
+          <span className="become-a-host">
+            {/* <button className="become-a-host-btn" onClick={handleClick}>Become a host</button> */}
+            {
+              sessionUser? <ListingFormModal spotId='' formUsage='Become a host' />
+              : <LoginFormModal formUsage='Become a Host' />
+            }
+          </span>
           <span>
             {isLoaded && sessionLinks}
           </span>

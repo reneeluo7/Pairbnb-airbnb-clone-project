@@ -16,3 +16,10 @@
     color: #FF385C;
     margin: 10px;
   }
+  .try-demo{
+    margin-top: 10px;
+  }
+  .try-demo:hover{
+    color: #FF385C;
+    cursor: pointer;
+  }

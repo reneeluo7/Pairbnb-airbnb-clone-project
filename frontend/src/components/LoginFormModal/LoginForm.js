@@ -63,7 +63,7 @@ function LoginForm() {
         />
       </label>
       <button type="submit" id='submit-btn'>Log In</button>
-      <button onClick={demoUser} id='submit-btn'>Demo User</button>
+      <button onClick={demoUser} id='submit-btn-demo' className='demo-user'>Demo User</button>
     </form>
   );
 }

@@ -40,15 +40,20 @@
     color: #ff5a60b0;
     font-size: 3rem;
 }
+.fa-circle-xmark,
 .fa-trash{
     position: relative;
     font-size: 1.2rem;
-    color:#FF5A5F;
-    top: -115px;
-    left: -30px;
+    color:#3F3F3F;
+    top: -135px;
+    left: -10px;
+    background-color: #f4f4f4c5;
+    border-radius: 50%;
 }
+.fa-circle-xmark,
 .fa-trash:hover{
     cursor: pointer;
+   
 }
 
 .confirm-delete{

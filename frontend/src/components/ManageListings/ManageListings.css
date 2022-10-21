@@ -41,6 +41,9 @@
     height: 100%;
     border-radius: 25px;
 }
+.create-new-listing-btn > button:hover{
+    cursor: pointer;
+}
 
 .listings-cards-container {
     display: flex;
@@ -126,5 +129,20 @@
 .myspot-delete button:hover,
 .myspot-edit button:hover {
     font-weight: bold;
+    cursor: pointer;
 
+}
+
+.myspot-manage-images button{
+    background-color: #FF385C;
+    align-items: center;
+    color: white;
+    font-size: 15px;
+    margin: auto;
+    width: 180px;
+    height: 30px;
+    border-radius: 25px;
+}
+.myspot-manage-images button:hover{
+    cursor: pointer;
 }

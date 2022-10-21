@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReview, editOneReview, getSpotsReviews } from '../../store/reviews'
 import { getOneSpot } from '../../store/spots'
+import StarRatings from 'react-star-ratings';
 
 function ReviewForm({ onClose, reviewId, formUsage, spotId }) {
     const dispatch = useDispatch();
@@ -61,13 +62,22 @@ function ReviewForm({ onClose, reviewId, formUsage, spotId }) {
                     </label>
                     <label>
                         Stars
-                        <input
+                        {/* <input
                             type="number"
                             value={stars}
                             min="1"
                             max="5"
                             onChange={(e) => setstars(e.target.value)}
                             required
+                        /> */}
+                        <StarRatings
+                            rating={stars}
+                            numberOfStars={5}
+                            starDimension="34px"
+                            starSpacing="0px"
+                            starRatedColor="yellow"
+                            changeRating={setstars}
+                            // name='star'
                         />
                     </label>
                     <button type="submit" id="submit-btn">Submit</button>
