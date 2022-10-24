@@ -23,7 +23,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path='/' exact>
+          <Route path='/allspots' exact>
             <SpotsBrowser />
           </Route>
           <Route path='/spots/:id/images/edit'>

@@ -1,0 +1,18 @@
+.splash-main{
+    top: 80px;
+    width: 100%;
+
+}
+.splash-main-container{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.splash-left{
+    width: 420px;
+    height: 90vh;
+}
+.splash-right{
+    height: 90vh;
+}
