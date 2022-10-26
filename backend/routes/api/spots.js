@@ -442,9 +442,9 @@ router.post(
   singleMulterUpload("url"),
   async (req, res) => {
     // const { url } = req.body;
-    console.log("req.file", req.file )
+    // console.log("req.file", req.file )
     const url = await singlePublicFileUpload(req.file)
-    console.log("req.file after aws", url)
+    // console.log("req.file after aws", url)
     const spotId = req.params.id;
     const imageableType = "Spot";
     const spotimage = await Image.create({
