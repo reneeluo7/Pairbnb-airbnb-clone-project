@@ -5,6 +5,9 @@ button {
   font-family: "Roboto", sans-serif;
   font-size: 15px;
 }
+#modal{
+  z-index: 2;
+}
 
 #modal-content {
   display: flex;
@@ -16,6 +19,7 @@ button {
   height: fit-content;
   border-radius: 15px;
   padding: 20px;
+  /* z-index: 10; */
   /* overflow:scroll; */
 }
 

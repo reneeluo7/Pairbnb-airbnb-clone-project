@@ -1,30 +1,35 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import './SplashPage.css';
 
 export default function SplashPage() {
   const user = useSelector((state) => state.session.user);
   if (user) return <Redirect to="/allspots" />;
 
-  const history = useHistory();
-  const handleClick = (e) => {
-    e.preventDefault();
-    history.push("/allspots");
-  };
+//   const history = useHistory();
+//   const handleClick = (e) => {
+//     e.preventDefault();
+//     history.push("/allspots");
+//   };
 
   return (
     <div className="splash-main">
       <div className="splash-main-container">
         <div className="splash-left">
           <div className="get-start-box">
-            <p className="words">Find Places to stay on Pairbnb</p>
-            <button onClick={handleClick} className="splash-start-btn">
+            <h1 className="words">Find Places to stay on Pairbnb</h1>
+            <Link className="get-start-btn" to='/allspots'>
+
+            {/* <button  className="splash-start-btn">
               <div className="get-start-btn">Get Started</div>
-            </button>
+            </button> */}
+            Get Started
+            </Link>
             <div className="connect-wrapper">
               Connect With Developer
               <div className="icon-links">
                 <a
-                  href="https://github.com/reneeluo7/Renmo"
+                  href="https://github.com/reneeluo7/Pairbnb-airbnb-clone-project"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

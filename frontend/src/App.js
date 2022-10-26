@@ -10,6 +10,7 @@ import ManageListings from "./components/ManageListings";
 import ManageReviews from "./components/ManageReviews";
 import ListingImages from "./components/ListingImages";
 import EditImages from "./components/EditImages";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
         </Route>
           <Route path='/users/:id/reviews'>
           <ManageReviews />
+        </Route>
+          <Route path='/'>
+          <SplashPage />
         </Route>
          
         </Switch>
