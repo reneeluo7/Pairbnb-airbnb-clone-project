@@ -41,7 +41,7 @@ function Navigation({ isLoaded }) {
       <div className="navbar-container">
 
         <div className="navbar-left">
-          <NavLink exact to="/">
+          <NavLink exact to="/allspots">
             <img src='https://a0.muscache.com/pictures/52c8d856-33d0-445a-a040-a162374de100.jpg' alt='logo' id='logo'/>
             <div className='logo-words'>Pairbnb</div>
           </NavLink>
